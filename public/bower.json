@@ -5,5 +5,10 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {
+    "angular": "~1.0.7",
+    "angular-resource": "~1.0.7",
+    "angular-mobile-nav": "latest"
+  }
 }
