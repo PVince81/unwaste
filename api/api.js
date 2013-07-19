@@ -25,10 +25,16 @@ var connection = mysql.createConnection({
 exports.addWastePoint = function(query, callback){
     console.log('addWastePoint', query);
 
+    var obj = {
+        latitude: query.latitude,
+        longitude: query.longitude,
+        timestamp: query.timestamp
+    };
+
     var values = [
-        query.latitude,
-        query.longitude,
-        query.timestamp
+        obj.latitude,
+        obj.longitude,
+        obj.timestamp
     ];
     values.map(function(value) {
         return connection.escape(value)
@@ -42,7 +48,7 @@ exports.addWastePoint = function(query, callback){
         if (err){
             console.error(err);
         }
-        callback();
+        callback(obj, err);
     });
     connection.end();
 };
