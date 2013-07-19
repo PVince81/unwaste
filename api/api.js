@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 /*
   CREATE DATABASE unwaste;
   CREATE USER 'unwaste'@'localhost' IDENTIFIED BY 'un3W4$13';
-  GRANT ALL PRIVILEGES ON unwaste.* TO 'unwaste'@'localhost'
+  GRANT ALL PRIVILEGES ON unwaste.* TO 'unwaste'@'localhost';
 
   USE unwaste;
 
@@ -30,6 +30,9 @@ exports.addWastePoint = function(query, callback){
         query.longitude,
         query.timestamp
     ];
+    values.map(function(value) {
+        return connection.escape(value)
+    });
     connection.connect();
     var sqlQuery = 'INSERT INTO wastepoint (latitude, longitude, timestamp) VALUES (' + values.join(', ') + ')';
 
@@ -39,7 +42,7 @@ exports.addWastePoint = function(query, callback){
         if (err){
             console.error(err);
         }
-        connection.end();
         callback();
     });
+    connection.end();
 };
