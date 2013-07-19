@@ -34,13 +34,17 @@ connection.connect();
 
 exports.getNearbyWastePoints = function(query, callback){
     console.log('getNearbyWastePoints', query);
-
-    var q = {
+    // distance in meters
+    var distance = parseFloat(query.distance),
         latitude: parseFloat(query.latitude),
-        longitude: parseFloat(query.longitude)
-    };
+        longitude: parseFloat(query.longitude);
 
-    var sqlQuery = 'SELECT * FROM Wastepoint';
+    if (distance > 400){
+        distance = 400;
+    }
+
+    // 6371 earth radius
+    var sqlQuery = 'SELECT * FROM Wastepoint WHERE acos(sin(' + q.latitude + ') * sin(latitude) + cos(' + q.latitude + ') * cos(latitude) * cos(longitude - (' + q.longitude + '))) * 6371 <= 1000));
 
     console.log('SQL: ', sqlQuery);
 
