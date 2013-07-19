@@ -21,7 +21,7 @@ app.configure(function () {
     app.use(express.static(path.join(__dirname, 'public')));
 
     app.get('/api/*', routes.api);
-    app.put('/api/*', routes.api);
+    app.post('/api/*', routes.api);
     app.get('*', function(req, res){
         res.statusCode = 404;
         res.send('Page not found');
