@@ -34,13 +34,20 @@ connection.connect();
 
 exports.getNearbyWastePoints = function(query, callback){
     console.log('getNearbyWastePoints', query);
+    // distance in meters
+    var distance = parseFloat(query.distance) || 100,
+        latitude = parseFloat(query.latitude),
+        longitude = parseFloat(query.longitude),
+        planetRadius = 6371; // earth radius
 
-    var q = {
-        latitude: parseFloat(query.latitude),
-        longitude: parseFloat(query.longitude)
-    };
+    if (distance > 400){
+        distance = 400;
+    }
 
-    var sqlQuery = 'SELECT * FROM Wastepoint';
+    // convert to kilometers
+    distance = distance / 1000;
+
+    var sqlQuery = 'SELECT * FROM Wastepoint WHERE acos(sin(' + latitude + ') * sin(latitude) + cos(' + latitude + ') * cos(latitude) * cos(longitude - (' + longitude + '))) * ' + planetRadius + ' <= ' + distance + '';
 
     console.log('SQL: ', sqlQuery);
 
