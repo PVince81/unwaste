@@ -21,6 +21,7 @@ var connection = mysql.createConnection({
     PRIMARY KEY (id)
   );
 */
+connection.connect();
 
 exports.addWastePoint = function(query, callback){
     console.log('addWastePoint', query);
@@ -39,7 +40,6 @@ exports.addWastePoint = function(query, callback){
     values.map(function(value) {
         return connection.escape(value)
     });
-    connection.connect();
     var sqlQuery = 'INSERT INTO wastepoint (latitude, longitude, timestamp) VALUES (' + values.join(', ') + ')';
 
     console.log('SQL: ', sqlQuery);
@@ -50,5 +50,5 @@ exports.addWastePoint = function(query, callback){
         }
         callback(obj, err);
     });
-    connection.end();
 };
+
