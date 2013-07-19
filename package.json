@@ -1,5 +1,5 @@
 {
-"name": "unwaste",
+  "name": "unwaste",
   "description": "Unwaste",
   "version": "0.0.1",
   "dependencies": {
@@ -9,9 +9,9 @@
     "underscore.string": "~2.2.0rc",
     "mustache": "0.7.1",
     "moment": "~1.7.0",
-    "mysql": "~2.0.0"
+    "mysql": "~2.0.0",
+    "bower": "~0.10.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "engine": "node >= 0.8.4"
 }
