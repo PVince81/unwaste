@@ -1,6 +1,6 @@
 (function () {
   'use strict';
 
-  angular.module('uwDirectives', []);
+  angular.module('uwDirectives', ['uwServices']);
 
 }());

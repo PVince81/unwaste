@@ -6,6 +6,7 @@
       'uwServices',
       'uwDirectives',
       'uwController',
+      'ngResource',
       'ngMobile',
       'ajoslin.mobile-navigate'
     ])
@@ -28,6 +29,14 @@
             transition: 'slide'
           })
           .otherwise({redirectTo: '/'});
+      }
+    ])
+    .run([
+      '$rootScope', '$navigate',
+      function ($rootScope, $navigate) {
+
+        $rootScope.$navigate = $navigate;
+
       }
     ])
 
