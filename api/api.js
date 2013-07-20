@@ -118,7 +118,7 @@ exports.addWastePoint = function(query, user, callback){
         obj.uid,
         obj.comment,
         obj.img,
-        obj.todo
+        obj.todo || 'b0'
     ];
     var values = values.map(function(value) {
         return connection.escape(value)
