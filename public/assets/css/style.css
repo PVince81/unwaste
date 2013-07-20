@@ -1,0 +1,17 @@
+body {
+}
+
+.content-container {
+    padding: 20px;
+}
+
+.page-container {
+    background-color: #fff;
+    height: 100%;
+}
+
+.brand {
+    display: inline-block;
+    width: 200px;
+    margin: auto;
+}
