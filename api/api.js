@@ -27,7 +27,9 @@ var connection = mysql.createConnection({
     latitude FLOAT(12, 10) NOT NULL,
     longitude FLOAT(12, 10) NOT NULL,
     timestamp datetime NOT NULL,
-    uid int,
+    uid int NOT NULL,
+    comment VARCHAR(140),
+    img LONGBLOB,
     PRIMARY KEY (id),
     FOREIGN KEY (uid) REFERENCES User(id)
   );
@@ -76,25 +78,30 @@ exports.getWastePoints = function(query, callback){
     });
 };
 
-exports.addWastePoint = function(query, user, callback){
+exports.addWastePoint = function(req, user, callback){
+    query = req.body
     console.log('addWastePoint', user, query);
     var obj = {
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
         timestamp: query.timestamp,
-        uid: user.uid
+        uid: user.uid,
+        comment: query.comment,
+        img : query.img
     };
 
     var values = [
         obj.latitude,
         obj.longitude,
         obj.timestamp,
-        obj.uid
+        obj.uid,
+        obj.comment,
+        obj.img
     ];
     values = values.map(function(value) {
         return connection.escape(value)
     });
-    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid) VALUES (' + values.join(', ') + ')';
+    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img) VALUES (' + values.join(', ') + ')';
 
     console.log('SQL: ', sqlQuery);
 
@@ -102,7 +109,7 @@ exports.addWastePoint = function(query, user, callback){
         if (err){
             console.error(err);
         }
-        callback(obj, err);
+        callback({success : true, id : rows.insertId});
     });
 };
 
@@ -133,17 +140,7 @@ exports.register = function(query, callback) {
             console.error(err);
         }
         else {
-            getIdQuery = 'SELECT id from User WHERE login = ' + values[0];
-            connection.query(getIdQuery, function(err, rows, fields) {
-                if (err) {
-                    console.error(err);
-                    callback({success : false}, err);
-                }
-                else {
-                    var uid = rows[0].id;
-                    callback({success : true, uid: uid}, err);
-                }
-            });
+            callback({success : true, uid: rows.insertId}, err);
         }
     });
 };
