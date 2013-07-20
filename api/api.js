@@ -63,15 +63,36 @@ exports.getNearbyWastePoints = function(query, callback){
     });
 };
 
-exports.getWastePoints = function(query, callback){
+exports.getWastePoints = function(query, callback) {
     console.log('getWastePoints', query);
 
-    var sqlQuery = 'SELECT * FROM Wastepoint';
+    var sqlQuery = 'SELECT (latitude, longitude, timestamp, uid, comment) FROM Wastepoint';
 
     console.log('SQL: ', sqlQuery);
 
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err){
+            console.error(err);
+        }
+        callback(rows, err);
+    });
+};
+exports.getWasteImage = function(query, callback) {
+    console.log('getWasteImage', query);
+    var obj = {
+        uid: query.uid,
+        timestamp: query.timestamp
+    };
+
+    var values = [obj.uid, obj.timestamp].map(function(value) {
+            return connection.escape(value);
+    });
+
+    var sqlQuery = 'SELECT (image) FROM Wastepoint WHERE (uid = ' + values[0] + ' AND timestamp = ' + values[1] + ')';
+    console.log('SQL: ', sqlQuery);
+
+    connection.query(sqlQuery, function(err, rows, fields) {
+        if (err) {
             console.error(err);
         }
         callback(rows, err);
