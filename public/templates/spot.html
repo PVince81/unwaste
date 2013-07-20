@@ -1,31 +1,19 @@
 <div class="page-container" ng-controller="spotController">
 	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()"><i class="icon-2x icon-cogs"></i></button>
-
-   			 	
-    		<div class="spotter">Spotted by <br /> <strong>  {{ wastepoint.timestamp }}</strong></div>		  
-
-    	<div class="interact" style="height: 100px;">
-				<a href="#" class="btn btn-large decover"><i class="icon-check"></i> Collected</a>
-    	</div> <!-- /interact -->
+   		<div class="trash-img" style="height:180px; background: url('content/1.jpg') #282828 no-repeat center top;"> 	
+    		<div class="spotter">Spotted by <br /> <strong>{{ $user.name }}</strong></div>		  
+    	</div> <!-- /trash-img -->
   
 	
-  <div class="navbar navbar-static-top">
-    <div class="navbar-inner">
-      <button class="btn pull-left" ng-click="$navigate.back()">back</button>
-      <a class="brand" href="#">unwaste - spot</a>
-      <span class="pull-right">logged in as {{ $user.name }}</span>
-    </div>
-  </div>
-  <div class="content-container">
     <form name="spotForm" ng-submit="createSpot">
 
       <label for="comment">Comment</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
 
       <label for="picture">Picture</label>
+      <div image-upload id="picture" width="680" height="280"></div>
       <br>
       <br>
       <button type="submit" class="btn" ng-click="save()">create Wastespot</button>
     </form>
-  </div>
 </div>
