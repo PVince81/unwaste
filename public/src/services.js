@@ -13,6 +13,24 @@
         });
       }
     ])
+    .service('gpsData', [
+        function(){
+            var gpsData = null;
+            return {
+                getGpsData: function(callback, errCallback){
+                    if (!gpsData){
+                        navigator.geolocation.getCurrentPosition(function(data){
+                            gpsData = data;
+                            callback(gpsData);
+                        }, errCallback);
+                    }
+                    else{
+                        callback(gpsData);
+                    }
+                }
+            }
+        }
+    ])
 
     .factory('user', [
       '$window', '$rootScope',
