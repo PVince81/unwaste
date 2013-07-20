@@ -1,4 +1,5 @@
-var  _ = require('underscore');
+var crypto = require('crypto'),
+     _ = require('underscore');
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -17,6 +18,7 @@ var connection = mysql.createConnection({
   CREATE TABLE User (
     id int NOT NULL AUTO_INCREMENT,
     login VARCHAR(64) NOT NULL,
+    pw VARCHAR(64),
     PRIMARY KEY (id)
   );
 
@@ -90,7 +92,7 @@ exports.addWastePoint = function(query, callback){
         obj.timestamp,
         obj.uid || 'NULL'
     ];
-    values.map(function(value) {
+    values = values.map(function(value) {
         return connection.escape(value)
     });
     var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid) VALUES (' + values.join(', ') + ')';
@@ -105,3 +107,81 @@ exports.addWastePoint = function(query, callback){
     });
 };
 
+encrypt = function(login, pw) {
+    var shasum = crypto.createHash('sha1'),
+        SALT = 'KJAHSLKJHLAKHUIW';
+        
+    shasum.update(login + SALT + pw);
+    return shasum.digest('hex');
+};
+
+exports.register = function(query, callback) {
+    console.log('register', query);
+    
+    var obj = {
+        login: query.login,
+        pw: query.pw
+    };
+    
+
+    var values = [obj.login, encrypt(obj.pw)].map(function(value) {
+        return connection.escape(value)
+    });
+    var sqlQuery = 'INSERT INTO User (login, pw) VALUES (' + values.join(', ') + ')';
+    console.log('SQL: ', sqlQuery);
+
+    connection.query(sqlQuery, function(err, rows, fields) {
+        if (err) {
+            console.error(err);
+        }
+        callback(obj, err);
+    });
+};
+
+
+exports.authenticate = function(query, callback) {
+    console.log('authenticate', query);
+
+    var obj = {
+        login: query.login,
+        pw : query.pw
+    };
+
+    var login = connection.escape(obj.login);
+    var safePw = encrypt(obj.pw);
+    
+    var sqlQuery = 'SELECT login, pw from User WHERE login = ' + login
+    
+    connection.query(sqlQuery, function(err, rows, fields) {
+        if (err) {
+            console.error(err);
+        }
+        else if (rows.length > 0) {
+            var remotePw = rows[0].pw
+            if (safePw === remotePw) {
+                console.log('Passwords match');
+                var success = {
+                    success : true
+                }
+                callback(success);
+            }
+            else {
+                console.log('Wrong password');
+                var failure = {
+                    success : false,
+                    error : 'wrong password'
+                };
+                callback(failure);
+            }
+        }
+        else {
+            console.log('User does not exist');
+            var failure = {
+                success : false,
+                error : 'unknown user'
+            };
+            callback(failure);
+        }
+        callback(obj, err);
+    });
+};

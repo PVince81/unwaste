@@ -10,7 +10,8 @@
     "mustache": "0.7.1",
     "moment": "~1.7.0",
     "mysql": "~2.0.0",
-    "bower": "~0.10.0"
+    "bower": "~0.10.0",
+    "crypto": "~0.0.3"
   },
   "devDependencies": {},
   "engine": "node >= 0.8.4"
