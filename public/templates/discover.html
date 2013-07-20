@@ -1,14 +1,22 @@
 <div class="page-container" ng-controller="discoverController">
-  <div class="navbar navbar-static-top">
-    <div class="navbar-inner">
-      <button class="btn pull-left" ng-click="$navigate.back()">back</button>
-      <a class="brand" href="#">unwaste - discover</a>
-      <span class="pull-right" ng-bind="$user.name"></span>
-    </div>
-  </div>
+    	<button id="menu" class="btn pull-left" ng-click="$navigate.back()"><i class="icon-2x icon-cogs"></i></button>
+    	<div class="trash-img" style="height:180px; background: url('content/1.jpg') no-repeat center top;"> 	
+    		<div class="spotter">Spotted by <br /> <strong>User Name</strong></div>		    	
+    		<div class="spotted"> <strong>4</strong> <i class="icon-eye-open"></i></div>
+    	</div> <!-- /trash-img -->
+    	<div class="interact" style="height: 100px;">
+				<a href="descover.html" class="btn btn-large decover"><i class="icon-check"></i> Collected</a>
+    	</div> <!-- /interact -->
+    	<div class="trash-map" style="height: 120px; background: url('http://maps.googleapis.com/maps/api/staticmap?center=48.775418,9.181759&zoom=16&size=800x300&sensor=false&markers=color:blue%7Clabel:S%48775418,9181759') no-repeat center top;">
+				
+    	</div><!-- /trash-map -->
+  
+  
   <div class="content-container">
-      <h1>Discover</h1>
-
+  	
+  	
+  	
+  	
     <div class="map-container" ng-controller="mapController">
         <leaflet center="center" markers="markers"></leaflet>
     </div>
