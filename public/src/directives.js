@@ -71,7 +71,7 @@
       }
     ])
 
-    .directive('mapelement', ['gpsData', function (gpsData) {
+    .directive('mapelement', ['$navigate', 'gpsData', function ($navigate, gpsData) {
       return {
         link: function (scope, element, attrs) {
           var mapOptions = {
@@ -106,10 +106,13 @@
             _.each(points, function (point) {
               var coords = [point.latitude, point.longitude];
               coords = new google.maps.LatLng(coords[0], coords[1]);
-              new google.maps.Marker({
+              var marker = new google.maps.Marker({
                 position: coords,
                 map: map,
                 icon: ICON_TRASH
+              });
+              google.maps.event.addListener(marker, 'click', function() {
+                   $navigate.go('/detail/' + point.id);
               });
             });
           });
