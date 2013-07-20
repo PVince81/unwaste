@@ -53,7 +53,7 @@
               name: user.name
             };
             $window.localStorage.setItem('user', JSON.stringify(user));
-            $rootScope.user = user;
+            $rootScope.$user = user;
           },
 
           getUserId: function () {

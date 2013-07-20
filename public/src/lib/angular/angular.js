@@ -1,6 +1,6 @@
 /**
  * @license AngularJS v1.0.7
- * (c) 2010-2012 Google, Inc. http://angularjs.org
+   * (c) 2010-2012 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, document, undefined) {
