@@ -112,7 +112,7 @@
                 icon: ICON_TRASH
               });
               google.maps.event.addListener(marker, 'click', function() {
-                   $navigate.go('/detail/' + point.id);
+                  scope.$broadcast('showDetail', point.id);
               });
             });
           });

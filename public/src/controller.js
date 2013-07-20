@@ -96,8 +96,8 @@
       }
     ])
     .controller('loginController', [
-      '$scope', '$http', '$navigate', 'user',
-      function ($scope, $http, $navigate, user) {
+      '$scope', '$http', '$location', 'user',
+      function ($scope, $http, $location, user) {
 
         $scope.registerUser = function () {
 
@@ -128,7 +128,7 @@
                   name: $scope.login
                 });
 
-                $navigate.go('/');
+                $location.path('/');
               } else {
                 $scope.errorMessage = response.error || 'Ein Fehler ist aufgetreten!';
               }
@@ -139,9 +139,11 @@
       }
     ])
     .controller('mapController', [
-        '$scope', 'gpsData',
-        function($scope, gpsData) {
-
+        '$scope', '$location',
+        function($scope, $location) {
+            $scope.$on('showDetail', function(pointId){
+                $location.path('/detail/' + pointId);
+            });
         }
     ])
 
