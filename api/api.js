@@ -30,6 +30,7 @@ var connection = mysql.createConnection({
     uid int NOT NULL,
     comment VARCHAR(140),
     img LONGBLOB,
+    todo BIT,
     PRIMARY KEY (id),
     FOREIGN KEY (uid) REFERENCES User(id)
   );
@@ -66,7 +67,7 @@ exports.getNearbyWastePoints = function(query, callback){
 exports.getWastePoints = function(query, callback) {
     console.log('getWastePoints', query);
 
-    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment FROM Wastepoint';
+    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment, todo FROM Wastepoint';
 
     console.log('SQL: ', sqlQuery);
 
@@ -98,9 +99,7 @@ exports.getWasteImage = function(query, callback) {
         callback(rows, err);
     });
 };
-
-exports.addWastePoint = function(req, user, callback){
-    query = req.body
+exports.addWastePoint = function(query, user, callback){
     console.log('addWastePoint', user, query);
     var obj = {
         latitude: parseFloat(query.latitude, 10),
@@ -108,7 +107,8 @@ exports.addWastePoint = function(req, user, callback){
         timestamp: query.timestamp,
         uid: user.uid,
         comment: query.comment,
-        img : query.img
+        img : query.img,
+        todo : query.todo
     };
 
     var values = [
@@ -117,12 +117,13 @@ exports.addWastePoint = function(req, user, callback){
         obj.timestamp,
         obj.uid,
         obj.comment,
-        obj.img
+        obj.img,
+        obj.todo
     ];
-    values = values.map(function(value) {
+    var values = values.map(function(value) {
         return connection.escape(value)
     });
-    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img) VALUES (' + values.join(', ') + ')';
+    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img, todo) VALUES (' + values.join(', ') + ')';
 
     console.log('SQL: ', sqlQuery);
 
@@ -133,7 +134,25 @@ exports.addWastePoint = function(req, user, callback){
         callback({success : true, id : rows.insertId});
     });
 };
+exports.markAsDone = function(query, err) {
+    var obj = {
+        uid : query.uid,
+        timestamp : query.timestamp
+    };
 
+    var id = connection.escape(obj.id);
+    var timestamp = connection.escape(obj.id);
+
+    var sqlQuery = 'UPDATE Wastepoint SET todo = b' + 1 + ' WHERE (uid = ' + uid + ' AND timestamp = ' + timestamp + ')';
+    console.log('SQL: ', sqlQuery);
+
+    connection.query(sqlQuery, function(err,rows, fields) {
+        if (err) {
+            console.error(err);
+        }
+        callback({success : true})
+    });
+};
 encrypt = function(login, pw) {
     var shasum = crypto.createHash('sha1'),
         SALT = 'KJAHSLKJHLAKHUIW';
