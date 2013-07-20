@@ -3,30 +3,22 @@
     <div class="navbar-inner">
       <button class="btn pull-left" ng-click="$navigate.back()">back</button>
       <a class="brand" href="#">unwaste - spot</a>
-      <span class="pull-right label" ng-bind="$user.name"></span>
-      </div>
+      <span class="pull-right">logged in as {{ $user.name }}</span>
+    </div>
   </div>
   <div class="content-container">
     <h1>Spot</h1>
 
     <form name="spotForm" ng-submit="createSpot">
 
-      <label for="comment"></label>
-      <textarea id="comment" name="comment" ng-model="comment" placeholder="comment"></textarea>
+      <label for="comment">Comment</label>
+      <textarea id="comment" name="comment" ng-model="comment"></textarea>
 
-      <label for="pictureBefore"></label>
-      <input type="file" id="pictureBefore" name="pictureBefore" ng-model="pictureBefore">
-
-      <div ng-show="completed">
-        <label for="pictureAfter"></label>
-        <input type="file" id="pictureAfter" name="pictureAfter" ng-model="pictureAfter">
-      </div>
-
-      <label for="completed">
-        <input type="checkbox" id="completed" name="completed" ng-model="completed"> cleaned up
-      </label>
-
-      <button type="submit" class="btn">create Wastespot</button>
+      <label for="picture">Picture</label>
+      <div image-upload id="picture" width="680" height="280"></div>
+      <br>
+      <br>
+      <button type="submit" class="btn" ng-click="save()">create Wastespot</button>
     </form>
   </div>
 </div>
