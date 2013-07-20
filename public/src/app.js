@@ -28,6 +28,10 @@
             templateUrl: '../templates/spot.html',
             transition: 'slide'
           })
+          .when('/login', {
+            templateUrl: '../templates/login.html',
+            transition: 'slide'
+          })
           .otherwise({redirectTo: '/'});
       }
     ])

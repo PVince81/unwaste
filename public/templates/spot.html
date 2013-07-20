@@ -7,5 +7,26 @@
   </div>
   <div class="content-container">
     <h1>Spot</h1>
+
+    <form name="spotForm" ng-submit="createSpot">
+
+      <label for="comment"></label>
+      <textarea id="comment" name="comment" ng-model="comment" placeholder="comment"></textarea>
+
+
+      <label for="pictureBefore"></label>
+      <input type="file" id="pictureBefore" name="pictureBefore" ng-model="pictureBefore">
+
+      <label for="completed">
+        <input type="checkbox" id="completed" name="completed" ng-model="completed"> cleaned up
+      </label>
+
+      <div ng-show="completed">
+        <label for="pictureAfter"></label>
+        <input type="file" id="pictureAfter" name="pictureAfter" ng-model="pictureAfter">
+      </div>
+
+      <button type="submit" class="btn">create Wastespot</button>
+    </form>
   </div>
 </div>

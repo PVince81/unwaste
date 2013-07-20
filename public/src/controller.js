@@ -51,5 +51,30 @@
 
       }
     ])
+    .controller('loginController', [
+      '$scope', '$http', '$navigate',
+      function ($scope, $http, $navigate) {
+
+        $scope.loginUser = function (url) {
+
+
+          console.log('loginUser')
+
+          $http.post(url, { login: $scope.login, pw: $scope.pw})
+            .error(function () {
+              console.log(arguments);
+            })
+            .success(function (response) {
+              if (response.success) {
+                $navigate.go('/');
+              } else {
+                $scope.errorMessage = response.error || 'Ein Fehler ist aufgetreten!';
+              }
+            });
+
+          return false;
+        }
+      }
+    ])
 
 }());
