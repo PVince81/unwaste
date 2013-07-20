@@ -14,22 +14,45 @@
 
       }
     ])
+    .controller('detailController', [
+      '$scope', '$http', '$routeParams',
+      function ($scope, $http, $routeParams) {
+        var pointId = parseInt($routeParams.id, 10);
+
+        $http.get('/api/wastepoint/' + pointId)
+          .success(function (data) {
+              console.log(data);
+              $scope.comment = data.comment;
+              $scope.imageUrl = '/api/wasteimage?id=' + pointId;
+              $scope.latitude = data.latitude;
+              $scope.longitude = data.longitude;
+        });
+      }
+
+    ])
     .controller('spotController', [
       '$scope', '$http',
       function ($scope, $http) {
 
         function success(data) {
 
-          $http.post('/api/wastepoint', {
-            latitude: data.coords.latitude,
-              longitude: data.coords.longitude,
-              timestamp: Date.now()
-          }).success(function () {
+          $scope.save = function () {
 
-            console.log(data);
+            $http.post('/api/wastepoint', {
+              latitude: data.coords.latitude,
+                longitude: data.coords.longitude,
+                timestamp: Date.now(),
+                img: $scope.imageData,
+                comment:  $scope.comment,
+                todo: 0
+            }).success(function () {
+                alert('successfully created!');
+            });
+          };
 
+          $scope.$on('imageSelected', function (evt, imageData) {
+            $scope.imageData = imageData;
           });
-
         }
 
         function error(err) {
