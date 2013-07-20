@@ -14,6 +14,22 @@
 
       }
     ])
+    .controller('detailController', [
+      '$scope', '$http', '$routeParams',
+      function ($scope, $http, $routeParams) {
+        var pointId = parseInt($routeParams.id, 10);
+
+        $http.get('/api/wastepoint/' + pointId)
+          .success(function (data) {
+              console.log(data);
+              $scope.comment = data.comment;
+              $scope.imageUrl = '/api/wasteimage?id=' + pointId;
+              $scope.latitude = data.latitude;
+              $scope.longitude = data.longitude;
+        });
+      }
+
+    ])
     .controller('spotController', [
       '$scope', '$http',
       function ($scope, $http) {

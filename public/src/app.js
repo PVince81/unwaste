@@ -24,6 +24,10 @@
             templateUrl: '../templates/discover.html',
             transition: 'slide'
           })
+          .when('/detail/:id', {
+            templateUrl: '../templates/detail.html',
+            transition: 'slide'
+          })
           .when('/spot', {
             templateUrl: '../templates/spot.html',
             transition: 'slide'
