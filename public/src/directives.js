@@ -71,7 +71,7 @@
       }
     ])
 
-    .directive('mapelement', ['$navigate', 'gpsData', function ($navigate, gpsData) {
+    .directive('mapelement', ['$navigate', '$rootScope', 'gpsData', function ($navigate, $rootScope, gpsData) {
       return {
         link: function (scope, element, attrs) {
           var mapOptions = {
@@ -112,7 +112,9 @@
                 icon: ICON_TRASH
               });
               google.maps.event.addListener(marker, 'click', function() {
-                   $navigate.go('/detail/' + point.id);
+                  $rootScope.$apply(function(){
+                      $navigate.go('/detail/' + point.id);
+                  });
               });
             });
           });
