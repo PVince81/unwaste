@@ -27,7 +27,9 @@ var connection = mysql.createConnection({
     latitude FLOAT(12, 10) NOT NULL,
     longitude FLOAT(12, 10) NOT NULL,
     timestamp datetime NOT NULL,
-    uid int,
+    uid int NOT NULL,
+    comment VARCHAR(140),
+    img LONGBLOB,
     PRIMARY KEY (id),
     FOREIGN KEY (uid) REFERENCES User(id)
   );
@@ -61,10 +63,10 @@ exports.getNearbyWastePoints = function(query, callback){
     });
 };
 
-exports.getWastePoints = function(query, callback){
+exports.getWastePoints = function(query, callback) {
     console.log('getWastePoints', query);
 
-    var sqlQuery = 'SELECT * FROM Wastepoint';
+    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment FROM Wastepoint';
 
     console.log('SQL: ', sqlQuery);
 
@@ -75,26 +77,52 @@ exports.getWastePoints = function(query, callback){
         callback(rows, err);
     });
 };
+exports.getWasteImage = function(query, callback) {
+    console.log('getWasteImage', query);
+    var obj = {
+        uid: query.uid,
+        timestamp: query.timestamp
+    };
 
-exports.addWastePoint = function(query, user, callback){
+    var values = [obj.uid, obj.timestamp].map(function(value) {
+            return connection.escape(value);
+    });
+
+    var sqlQuery = 'SELECT (image) FROM Wastepoint WHERE (uid = ' + values[0] + ' AND timestamp = ' + values[1] + ')';
+    console.log('SQL: ', sqlQuery);
+
+    connection.query(sqlQuery, function(err, rows, fields) {
+        if (err) {
+            console.error(err);
+        }
+        callback(rows, err);
+    });
+};
+
+exports.addWastePoint = function(req, user, callback){
+    query = req.body
     console.log('addWastePoint', user, query);
     var obj = {
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
         timestamp: query.timestamp,
-        uid: user.uid
+        uid: user.uid,
+        comment: query.comment,
+        img : query.img
     };
 
     var values = [
         obj.latitude,
         obj.longitude,
         obj.timestamp,
-        obj.uid
+        obj.uid,
+        obj.comment,
+        obj.img
     ];
     values = values.map(function(value) {
         return connection.escape(value)
     });
-    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid) VALUES (' + values.join(', ') + ')';
+    var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img) VALUES (' + values.join(', ') + ')';
 
     console.log('SQL: ', sqlQuery);
 
@@ -102,7 +130,7 @@ exports.addWastePoint = function(query, user, callback){
         if (err){
             console.error(err);
         }
-        callback(obj, err);
+        callback({success : true, id : rows.insertId});
     });
 };
 
@@ -133,17 +161,7 @@ exports.register = function(query, callback) {
             console.error(err);
         }
         else {
-            getIdQuery = 'SELECT id from User WHERE login = ' + values[0];
-            connection.query(getIdQuery, function(err, rows, fields) {
-                if (err) {
-                    console.error(err);
-                    callback({success : false}, err);
-                }
-                else {
-                    var uid = rows[0].id;
-                    callback({success : true, uid: uid}, err);
-                }
-            });
+            callback({success : true, uid: rows.insertId}, err);
         }
     });
 };

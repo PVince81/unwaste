@@ -118,37 +118,7 @@
     .controller('mapController', [
         '$scope', 'gpsData',
         function($scope, gpsData) {
-            gpsData.getGpsData(function(gpsData){
-                console.log('position changed', gpsData);
-                $scope.center = {
-                    lat: gpsData.coords.latitude,
-                    lng: gpsData.coords.longitude,
-                    zoom: 11
-                };
-            });
 
-            $scope.$on('pointsChanged', function($event, points){
-                console.log('pointsChanged', points);
-                $scope.markers = _.map(points, function(point){
-                    return {
-                        lat: point.latitude,
-                        lng: point.longitude
-                    };
-                });
-                // current position
-                $scope.markers.push({
-                    name: 'Your are here',
-                    lat: 48.7794685364,
-                    lng:9.1684560776 
-                })
-            });
-
-            $scope.center = {
-                        lat: 48.7794685364,
-                        lng:9.1684560776,
-                zoom: 11
-            };
-            $scope.markers = [];
         }
     ])
 
