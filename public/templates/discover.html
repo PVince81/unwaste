@@ -1,10 +1,14 @@
-<div class="page-container" ng-controller="discoverController">    	
-	    <div class="map-container" ng-controller="mapController" mapelement="true"></div>
-	    <ul>
-	      <li ng-repeat="wastepoint in wastepoints">
+<div class="page-container ng-controller="loginController">
+	<button id="menu" class="btn pull-left" ng-click="$navigate.go('/')"><i class="icon-2x icon-backward"></i></button>
+	    
+	    <div class="map-discover" ng-controller="mapController" mapelement="true"></div>
+	    
+	     <!--
+	    <ul> <li ng-repeat="wastepoint in wastepoints">
 	        {{ wastepoint.latitude }},
 	        {{ wastepoint.longitude }},
 	        {{ wastepoint.timestamp }}
 	      </li>
 	  </ul>
+	 -->
 </div>

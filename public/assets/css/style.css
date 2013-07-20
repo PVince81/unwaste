@@ -50,6 +50,7 @@ body {
 }
 
 .btn-big-red {
+	border-width: 1px;
     background-color: #C63702;
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0 0 0 1px #C63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #AD3002, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
@@ -150,12 +151,17 @@ a.btn-small-red:active {
  */
 
 .login-container {
-	border-radius: 4px;
-	background-color:rgba(255,255,255,0.2);
-	width:30%;
+	border-radius: 6px;
+	background-color:#e3e8ef;
+	border:#dbdfe6 solid 4px;
+	width:226px;
 	margin-left:auto;
 	margin-right:auto;
 	padding:20px;
+	
+	-webkit-box-shadow: 0px 3px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 3px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 3px 5px rgba(50, 50, 50, 0.75);
 	
 }
 
@@ -222,7 +228,18 @@ a.btn-small-red:active {
 /*
  * Map:
  */
-map-container img {
+.map-discover {
+	max-width:none;
+	width: 100%;    
+	height: 100%;    
+	
+}
+
+.map-discover img {
+	max-width:none;
+}
+
+.map-container img {
 	max-width:none;
 }
 
