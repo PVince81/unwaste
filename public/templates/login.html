@@ -1,23 +1,28 @@
 <div class="page-container" ng-controller="loginController">
   <div class="navbar navbar-static-top">
     <div class="navbar-inner">
-      <button class="btn pull-left" ng-click="$navigate.back()">back</button>
-      <a class="brand" href="#">unwaste - discover</a>
+      <a class="brand" href="#">unwaste - login</a>
     </div>
   </div>
   <div class="content-container">
 
-    <p>Login</p>
+    <h1>Login</h1>
+
+    <br>
 
     <p class="alert alert-error" ng-show="errorMessage" ng-bind="errorMessage"></p>
+    <p class="alert alert-success" ng-show="successMessage" ng-bind="successMessage"></p>
 
     <form name="loginForm" ng-submit="loginUser()">
       <label for="login">Username:</label>
       <input type="text" id="login" ng-model="login" name="login" required>
       <label for="pw">Password:</label>
       <input type="password" id="pw" ng-model="pw" name="pw" required>
-      <button type="button" ng-click="loginUser('/api/authenticate')" ng-disabled="!loginForm.$valid">login</button>
-      <button type="button" ng-click="loginUser('/api/register')" ng-disabled="!loginForm.$valid">register</button>
+
+      <br>
+      <br>
+      <button class="btn" type="button" ng-click="loginUser()" ng-disabled="!loginForm.$valid">login</button>
+      <button class="btn" type="button" ng-click="registerUser()" ng-disabled="!loginForm.$valid">register</button>
     </form>
   </div>
 </div>

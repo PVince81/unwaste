@@ -55,12 +55,24 @@
       '$scope', '$http', '$navigate',
       function ($scope, $http, $navigate) {
 
+        $scope.registerUser = function () {
+
+          $http.post('/api/register', { login: $scope.login, pw: $scope.pw})
+            .error(function () {
+              console.log(arguments);
+            })
+            .success(function (response) {
+              if (response.success) {
+                $scope.successMessage = 'Der Benutzer wurde erfolgreich angelegt';
+              } else {
+                $scope.errorMessage = response.error || 'Ein Fehler ist aufgetreten!';
+              }
+            })
+        }
+
         $scope.loginUser = function (url) {
 
-
-          console.log('loginUser')
-
-          $http.post(url, { login: $scope.login, pw: $scope.pw})
+          $http.post('/api/authenticate', { login: $scope.login, pw: $scope.pw})
             .error(function () {
               console.log(arguments);
             })

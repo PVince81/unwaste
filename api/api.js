@@ -193,6 +193,5 @@ exports.authenticate = function(query, callback) {
             };
             callback(failure);
         }
-        callback(obj, err);
     });
 };
