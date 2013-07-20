@@ -8,6 +8,10 @@ body {
 	background: url("../img/bg.jpg") no-repeat center top;
 	display: table;    
 	width:100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }  
 
 .content-container {
@@ -34,6 +38,9 @@ body {
     padding: 160px 0;
     position: relative;
     text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);  
+    font-size: 17.5px;
+    color:#FFFFFF;
 }
 
 .jumbotron:after {
