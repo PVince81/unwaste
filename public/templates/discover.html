@@ -7,19 +7,9 @@
     	<div class="interact" style="height: 100px;">
 				<a href="descover.html" class="btn btn-large decover"><i class="icon-check"></i> Collected</a>
     	</div> <!-- /interact -->
-    	<div class="trash-map" style="height: 120px; background: url('http://maps.googleapis.com/maps/api/staticmap?center=48.775418,9.181759&zoom=16&size=800x300&sensor=false&markers=color:blue%7Clabel:S%48775418,9181759') no-repeat center top;">
-				
-    	</div><!-- /trash-map -->
-  
   
   <div class="content-container">
-  	
-  	
-  	
-  	
-    <div class="map-container" ng-controller="mapController">
-        <leaflet center="center" markers="markers"></leaflet>
-    </div>
+    <div class="map-container" ng-controller="mapController" mapelement="true"></div>
 
     <ul>
       <li ng-repeat="wastepoint in wastepoints">

@@ -24,11 +24,6 @@ body {
     margin: auto;
 }
 
-.angular-leaflet-map {
-    width: 640px;
-    height: 480px;
-}
-
 /*
  * 
  *  INDEX:
@@ -177,3 +172,10 @@ a.btn-small-red:active {
 /*
  * Map:
  */
+.map-container {
+    width: 100%;
+    max-width: 1024px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
