@@ -113,7 +113,8 @@ exports.getWasteImage = function(query, callback) {
         callback(rows, err);
     });
 };
-exports.addWastePoint = function(query, user, callback){
+exports.addWastePoint = function(req, user, callback){
+    var query = req.body;
     console.log('addWastePoint', user, query);
     var obj = {
         latitude: parseFloat(query.latitude, 10),
