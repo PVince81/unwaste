@@ -1,4 +1,13 @@
 <div class="page-container" ng-controller="spotController">
+	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()"><i class="icon-2x icon-cogs"></i></button>
+   		<div class="trash-img" style="height:180px; background: url('content/1.jpg') no-repeat center top;"> 	
+    		<div class="spotter">Spotted by <br /> <strong>User Name</strong></div>		  
+    	</div> <!-- /trash-img -->
+    	<div class="interact" style="height: 100px;">
+				<a href="#" class="btn btn-large decover"><i class="icon-check"></i> Collected</a>
+    	</div> <!-- /interact -->
+  
+	
   <div class="navbar navbar-static-top">
     <div class="navbar-inner">
       <button class="btn pull-left" ng-click="$navigate.back()">back</button>
@@ -7,8 +16,6 @@
       </div>
   </div>
   <div class="content-container">
-    <h1>Spot</h1>
-
     <form name="spotForm" ng-submit="createSpot">
 
       <label for="comment"></label>

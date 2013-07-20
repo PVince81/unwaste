@@ -8,7 +8,8 @@
       'uwController',
       'ngResource',
       'ngMobile',
-      'ajoslin.mobile-navigate'
+      'ajoslin.mobile-navigate',
+      'leaflet-directive'
     ])
     .config([
       '$routeProvider',
@@ -16,20 +17,20 @@
 
         $routeProvider
           .when('/', {
-            templateUrl: '../templates/start.html',
+            templateUrl: 'templates/start.html',
             controller: 'startController',
             transition: 'slide'
           })
           .when('/discover', {
-            templateUrl: '../templates/discover.html',
+            templateUrl: 'templates/discover.html',
             transition: 'slide'
           })
           .when('/spot', {
-            templateUrl: '../templates/spot.html',
+            templateUrl: 'templates/spot.html',
             transition: 'slide'
           })
           .when('/login', {
-            templateUrl: '../templates/login.html',
+            templateUrl: 'templates/login.html',
             transition: 'slide'
           })
           .otherwise({redirectTo: '/'});
