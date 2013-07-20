@@ -1,28 +1,26 @@
-<div class="page-container" ng-controller="loginController">
-  <div class="navbar navbar-static-top">
-    <div class="navbar-inner">
-      <a class="brand" href="#">unwaste - login</a>
-    </div>
-  </div>
+<div class="page-container bg-img" ng-controller="loginController">
+	<button id="menu" class="btn pull-left" ng-click="$navigate.go('/')"><i class="icon-2x icon-backward"></i></button>
+
   <div class="content-container">
-
-    <h1>Login</h1>
-
-    <br>
-
-    <p class="alert alert-error" ng-show="errorMessage" ng-bind="errorMessage"></p>
-    <p class="alert alert-success" ng-show="successMessage" ng-bind="successMessage"></p>
-
-    <form name="loginForm">
-      <label for="login">Username:</label>
-      <input type="text" id="login" ng-model="login" name="login" required>
-      <label for="pw">Password:</label>
-      <input type="password" id="pw" ng-model="pw" name="pw" required>
-
-      <br>
-      <br>
-      <button class="btn" type="button" ng-click="loginUser()" ng-disabled="!loginForm.$valid">login</button>
-      <button class="btn" type="button" ng-click="registerUser()" ng-disabled="!loginForm.$valid">register</button>
-    </form>
+		<div class="jumbotron">
+			<div class="login-container">
+			<p class="alert alert-error" ng-show="errorMessage" ng-bind="errorMessage"></p>
+    		<p class="alert alert-success" ng-show="successMessage" ng-bind="successMessage"></p>	
+		    <form name="loginForm">
+		      <label for="login">Username:</label>
+		      <input type="text" id="login" ng-model="login" name="login" required>
+		      <label for="pw">Password:</label>
+		      <input type="password" id="pw" ng-model="pw" name="pw" required>
+		
+		      <br>
+		      <br>
+		      <button class="btn" type="button" ng-click="loginUser()" ng-disabled="!loginForm.$valid">login</button>
+		      <button class="btn" type="button" ng-click="registerUser()" ng-disabled="!loginForm.$valid">register</button>
+		    </form>
+		    </div>
+       </div>
   </div>
 </div>
+
+
+  

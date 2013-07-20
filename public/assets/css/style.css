@@ -35,7 +35,7 @@ body {
  */
 
 .jumbotron {
-    padding: 160px 0;
+    padding: 7% 0;
     position: relative;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);  
@@ -116,24 +116,67 @@ a.btn-small-red:active {
 	color: #FFFFFF;
 }
 
+.btnempty {
+	border: 1px dashed rgba(255,255,255,0.5);
+	background:rgba(255,255,255,0.1);
+	color: #FFFFFF;	
+    text-shadow: 0 1px 1px #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    padding: 4px 12px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px 4px 4px 4px;
+    
+}
 
+.btnempty:hover {
+	border: 1px dashed rgba(255,255,255,0.5);
+	background:rgba(255,255,255,0.1);
+	color: #FFFFFF;	
+}
 
 
 
 /*
  * ******
  * 
- *  DESCOVER LIST:
+ *  LOGIN:
+ * 
+ * ******
+ */
+
+.login-container {
+	border-radius: 4px;
+	background-color:rgba(255,255,255,0.2);
+	width:30%;
+	margin-left:auto;
+	margin-right:auto;
+	padding:20px;
+	
+}
+
+
+/*
+ * ******
+ * 
+ *  DISCOVER LIST:
  * 
  * ******
  */
 
 #menu {
-	position:absolute;
+	position:absolute;    
+	display: block;
 	top:0px;
 	left:0px;
 	background:#FFFFFF;
 	padding: 5px;
+	border-radius: 0 0 4px 0;
+	z-index: 200;
 }
 
 /*
@@ -182,6 +225,7 @@ a.btn-small-red:active {
 map-container img {
 	max-width:none;
 }
+
 .map-container {
 	max-width:none;
 	width: 100%;    
