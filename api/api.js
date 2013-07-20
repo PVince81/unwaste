@@ -89,7 +89,7 @@ exports.addWastePoint = function(query, user, callback){
         obj.latitude,
         obj.longitude,
         obj.timestamp,
-        obj.uid || 'anonymous'
+        obj.uid
     ];
     values = values.map(function(value) {
         return connection.escape(value)
@@ -132,7 +132,19 @@ exports.register = function(query, callback) {
         if (err) {
             console.error(err);
         }
-        callback(obj, err);
+        else {
+            getIdQuery = 'SELECT id from User WHERE login = ' + values[0];
+            connection.query(getIdQuery, function(err, rows, fields) {
+                if (err) {
+                    console.error(err);
+                    callback({success : false}, err);
+                }
+                else {
+                    var uid = rows[0].id;
+                    callback({success : true, uid: uid}, err);
+                }
+            });
+        }
     });
 };
 
