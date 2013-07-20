@@ -76,21 +76,21 @@ exports.getWastePoints = function(query, callback){
     });
 };
 
-exports.addWastePoint = function(query, callback){
-    console.log('addWastePoint', query);
-
+exports.addWastePoint = function(query, user, callback){
+    console.log('addWastePoint', user, query);
+    
     var obj = {
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
         timestamp: query.timestamp,
-        uid: parseInt(query.uid, 10)
+        uid: user.uid
     };
 
     var values = [
         obj.latitude,
         obj.longitude,
         obj.timestamp,
-        obj.uid || 'NULL'
+        obj.uid || 'anonymous'
     ];
     values = values.map(function(value) {
         return connection.escape(value)
@@ -150,19 +150,20 @@ exports.authenticate = function(query, callback) {
     var login = connection.escape(obj.login);
     var safePw = encrypt(obj.pw);
     
-    var sqlQuery = 'SELECT login, pw from User WHERE login = ' + login
+    var sqlQuery = 'SELECT login, pw, id from User WHERE login = ' + login
     
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err) {
             console.error(err);
         }
         else if (rows.length > 0) {
-            var remotePw = rows[0].pw
-            if (safePw === remotePw) {
+            var remote = rows[0]
+            if (safePw === remote.pw) {
                 console.log('Passwords match');
                 var success = {
-                    success : true
-                }
+                    success : true,
+                    uid : remote.id
+                };
                 callback(success);
             }
             else {
