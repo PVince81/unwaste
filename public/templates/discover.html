@@ -6,7 +6,11 @@
     </div>
   </div>
   <div class="content-container">
-    <h1>Discover</h1>
+      <h1>Discover</h1>
+
+    <div class="map-container" ng-controller="mapController">
+        <leaflet center="center" markers="markers"></leaflet>
+    </div>
 
     <ul>
       <li ng-repeat="wastepoint in wastepoints">
@@ -14,7 +18,7 @@
         {{ wastepoint.longitude }},
         {{ wastepoint.timestamp }}
       </li>
-    </ul>
+  </ul>
 
-  </div>
+
 </div>
