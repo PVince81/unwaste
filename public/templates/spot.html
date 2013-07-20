@@ -3,7 +3,8 @@
     <div class="navbar-inner">
       <button class="btn pull-left" ng-click="$navigate.back()">back</button>
       <a class="brand" href="#">unwaste - spot</a>
-    </div>
+      <span class="pull-right label" ng-bind="$user.name"></span>
+      </div>
   </div>
   <div class="content-container">
     <h1>Spot</h1>
@@ -13,18 +14,17 @@
       <label for="comment"></label>
       <textarea id="comment" name="comment" ng-model="comment" placeholder="comment"></textarea>
 
-
       <label for="pictureBefore"></label>
       <input type="file" id="pictureBefore" name="pictureBefore" ng-model="pictureBefore">
-
-      <label for="completed">
-        <input type="checkbox" id="completed" name="completed" ng-model="completed"> cleaned up
-      </label>
 
       <div ng-show="completed">
         <label for="pictureAfter"></label>
         <input type="file" id="pictureAfter" name="pictureAfter" ng-model="pictureAfter">
       </div>
+
+      <label for="completed">
+        <input type="checkbox" id="completed" name="completed" ng-model="completed"> cleaned up
+      </label>
 
       <button type="submit" class="btn">create Wastespot</button>
     </form>

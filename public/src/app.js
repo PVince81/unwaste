@@ -36,13 +36,18 @@
       }
     ])
     .run([
-      '$rootScope', '$navigate',
-      function ($rootScope, $navigate) {
+      '$rootScope', '$location', '$navigate', 'user',
+      function ($rootScope, $location, $navigate, user) {
 
         $rootScope.$navigate = $navigate;
 
+        if(!user.isLoggedIn()) {
+          $location.path('/login');
+        } else {
+          $rootScope.$user = user.getData();
+          console.log($rootScope.$user);
+        }
       }
     ])
-
 
 })();

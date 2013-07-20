@@ -52,8 +52,8 @@
       }
     ])
     .controller('loginController', [
-      '$scope', '$http', '$navigate',
-      function ($scope, $http, $navigate) {
+      '$scope', '$http', '$navigate', 'user',
+      function ($scope, $http, $navigate, user) {
 
         $scope.registerUser = function () {
 
@@ -78,6 +78,12 @@
             })
             .success(function (response) {
               if (response.success) {
+
+                user.login({
+                  uid: response.uid,
+                  name: $scope.login
+                });
+
                 $navigate.go('/');
               } else {
                 $scope.errorMessage = response.error || 'Ein Fehler ist aufgetreten!';
