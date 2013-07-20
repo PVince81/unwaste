@@ -1,5 +1,7 @@
 (function () {
   'use strict';
+  var ICON_TRASH = 'assets/img/trashmark.png',
+      ICON_CURRENT_POS = 'assets/img/locmark.png';
 
   angular.module('uwDirectives', ['uwServices'])
     .directive('mapelement', ['gpsData', function(gpsData){
@@ -23,7 +25,8 @@
                         currentPosMarker = new google.maps.Marker({
                               position: coords,
                               map: map,
-                              title: 'You are here'
+                              title: 'You are here',
+                              icon: ICON_CURRENT_POS
                           });
                     }
                     else{
@@ -38,7 +41,8 @@
                         coords = new google.maps.LatLng(coords[0], coords[1]);
                         new google.maps.Marker({
                               position: coords,
-                              map: map
+                              map: map,
+                              icon: ICON_TRASH
                           });
                     });
                 });
