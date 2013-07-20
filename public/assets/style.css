@@ -15,3 +15,8 @@ body {
     width: 200px;
     margin: auto;
 }
+
+.angular-leaflet-map {
+    width: 640px;
+    height: 480px;
+}

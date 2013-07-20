@@ -8,7 +8,8 @@
       'uwController',
       'ngResource',
       'ngMobile',
-      'ajoslin.mobile-navigate'
+      'ajoslin.mobile-navigate',
+      'leaflet-directive'
     ])
     .config([
       '$routeProvider',
