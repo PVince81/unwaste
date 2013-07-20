@@ -95,7 +95,7 @@ exports.getWastePoint = function(query, callback) {
         callback(rows, err);
     });
 };
-exports.getWasteImage = function(query, callback) {
+exports.getWastePointImage = function(query, callback) {
     console.log('getWasteImage', query);
     var obj = {
         id: query.id,
@@ -103,7 +103,7 @@ exports.getWasteImage = function(query, callback) {
 
     id = connection.escape(obj.id);
 
-    var sqlQuery = 'SELECT (image) FROM Wastepoint WHERE id = ' + id;
+    var sqlQuery = 'SELECT (img) FROM Wastepoint WHERE id = ' + id;
     console.log('SQL: ', sqlQuery);
 
     connection.query(sqlQuery, function(err, rows, fields) {

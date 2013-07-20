@@ -21,9 +21,9 @@
 
         $http.get('/api/wastepoint/' + pointId)
           .success(function (data) {
-              console.log(data);
+              data = data[0];
               $scope.comment = data.comment;
-              $scope.imageUrl = '/api/wasteimage?id=' + pointId;
+              $scope.imageUrl = '/api/wastepointimage?id=' + pointId;
               $scope.latitude = data.latitude;
               $scope.longitude = data.longitude;
         });
