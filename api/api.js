@@ -52,7 +52,7 @@ exports.getNearbyWastePoints = function(query, callback){
     // convert to kilometers
     distance = distance / 1000;
 
-    var sqlQuery = 'SELECT * FROM Wastepoint WHERE acos(sin(' + latitude + ') * sin(latitude) + cos(' + latitude + ') * cos(latitude) * cos(longitude - (' + longitude + '))) * ' + planetRadius + ' <= ' + distance + '';
+    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment, todo FROM Wastepoint WHERE acos(sin(' + latitude + ') * sin(latitude) + cos(' + latitude + ') * cos(latitude) * cos(longitude - (' + longitude + '))) * ' + planetRadius + ' <= ' + distance + '';
 
     console.log('SQL: ', sqlQuery);
 
