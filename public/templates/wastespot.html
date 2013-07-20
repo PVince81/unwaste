@@ -1,23 +1,16 @@
 <div class="page-container" ng-controller="discoverController">
-    	<button id="menu" class="btn pull-left" ng-click="$navigate.back()"><i class="icon-2x icon-cogs"></i></button>
-    	<div class="trash-img" style="height:180px; background: url('content/1.jpg') no-repeat center top;"> 	
+    	<button id="menu" class="btn pull-left" ng-click="$navigate.back()">
+        <i class="icon-2x icon-cogs"></i></button>
+    	
+        <div class="trash-img" style="height:180px; background: url('content/1.jpg') no-repeat center top;"> 	
     		<div class="spotter">Spotted by <br /> <strong>User Name</strong></div>		    	
     		<div class="spotted"> <strong>4</strong> <i class="icon-eye-open"></i></div>
-    	</div> <!-- /trash-img -->
+    	</div>
+
     	<div class="interact" style="height: 100px;">
 				<a href="#" class="btn btn-large decover"><i class="icon-check"></i> Collected</a>
-    	</div> <!-- /interact -->
+    	</div>
   
   <div class="content-container">
-    <div class="map-container" ng-controller="mapController" mapelement="true"></div>
-
-    <ul>
-      <li ng-repeat="wastepoint in wastepoints">
-        {{ wastepoint.latitude }},
-        {{ wastepoint.longitude }},
-        {{ wastepoint.timestamp }}
-      </li>
-  </ul>
-
-
+    <div class="map-container" ng-controller="mapController" mapelement="true"></div>   
 </div>

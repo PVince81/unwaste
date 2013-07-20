@@ -1,19 +1,23 @@
 <div class="page-container" ng-controller="spotController">
-	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()"><i class="icon-2x icon-cogs"></i></button>
+	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()">
+     <i class="icon-2x icon-cogs"></i></button>
    		<div class="trash-img" style="height:180px; background: url('content/1.jpg') #282828 no-repeat center top;"> 	
     		<div class="spotter">Spotted by <br /> <strong>{{ $user.name }}</strong></div>		  
-    	</div> <!-- /trash-img -->
-  
+    	</div>  
 	
     <form name="spotForm" ng-submit="createSpot">
 
-      <label for="comment">Comment</label>
+      <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
 
-      <label for="picture">Picture</label>
+      <label for="picture">Take a picture [optional]</label>
       <div image-upload id="picture" width="680" height="280"></div>
+        <!-- TODO make nice checkbox -->
+      <input id="todo" type="checkbox" name="todo" ng-model="todo">
+        Did you already pick it up?
+      </input>
       <br>
       <br>
-      <button type="submit" class="btn" ng-click="save()">create Wastespot</button>
+      <button type="submit" class="btn" ng-click="save()">Submit</button>
     </form>
 </div>
