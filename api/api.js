@@ -78,7 +78,6 @@ exports.getWastePoints = function(query, callback){
 
 exports.addWastePoint = function(query, user, callback){
     console.log('addWastePoint', user, query);
-    
     var obj = {
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
@@ -123,7 +122,6 @@ exports.register = function(query, callback) {
         pw: query.pw
     };
     
-
     var values = [obj.login, encrypt(obj.pw)].map(function(value) {
         return connection.escape(value)
     });
