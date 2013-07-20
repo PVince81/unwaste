@@ -66,7 +66,7 @@ exports.getNearbyWastePoints = function(query, callback){
 exports.getWastePoints = function(query, callback) {
     console.log('getWastePoints', query);
 
-    var sqlQuery = 'SELECT (latitude, longitude, timestamp, uid, comment) FROM Wastepoint';
+    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment FROM Wastepoint';
 
     console.log('SQL: ', sqlQuery);
 
