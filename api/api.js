@@ -150,16 +150,16 @@ exports.addWastePoint = function(req, user, callback){
         callback({success : true, id : rows.insertId});
     });
 };
-exports.markAsDone = function(query, err) {
-    var obj = {
-        uid : query.uid,
-        timestamp : query.timestamp
-    };
+exports.markAsDone = function(query, callback, err) {
+    var spotId = parseInt(query.id, 10);
+    if (!spotId){
+        if (err){
+            err('No id specified !');
+            return;
+        }
+    }
 
-    var id = connection.escape(obj.id);
-    var timestamp = connection.escape(obj.id);
-
-    var sqlQuery = 'UPDATE Wastepoint SET todo = b' + 1 + ' WHERE (uid = ' + uid + ' AND timestamp = ' + timestamp + ')';
+    var sqlQuery = 'UPDATE Wastepoint SET todo = 0 WHERE (id = ' + spotId + ')';
     console.log('SQL: ', sqlQuery);
 
     connection.query(sqlQuery, function(err,rows, fields) {
