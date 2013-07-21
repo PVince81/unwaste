@@ -5,10 +5,10 @@
     <div class="alert alert-info" ng-show="successMessage" ng-bind="successMessage"></div>
     
 			<div> 
-                <div ng-hide = "$user.name"> Hallo </div>
-                <div ng-hide = "$user.name" 
-                    ng-click="$navigate.go('/login')" class="btnempty">
-                    Stranger
+                <div ng-hide = "$user.name"> Hallo 
+	                <div ng-click="$navigate.go('/login')" class="btnempty">
+	                    Stranger
+	                </div>
                 </div>
                 
                 <div ng-show = "$user.name">
