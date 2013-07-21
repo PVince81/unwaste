@@ -40,7 +40,7 @@
 
         function success(data) {
 
-          $scope.save = function () {
+          $scope.save = function (todo) {
             $scope.uploading = true;
 
             $http.post('/api/wastepoint', {
@@ -49,8 +49,7 @@
                 timestamp: Date.now(),
                 img: $scope.imageData,
                 comment:  $scope.comment,
-                todo: 0
-
+                todo: !!todo
             }).success(function () {
                 $scope.uploading = false;
                 console.log('broadcasting');

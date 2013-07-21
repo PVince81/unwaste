@@ -30,7 +30,7 @@ var connection = mysql.createConnection({
     uid int NOT NULL,
     comment VARCHAR(140),
     img LONGBLOB,
-    todo BIT,
+    todo TINYINT(1) DEFAULT 0,
     PRIMARY KEY (id),
     FOREIGN KEY (uid) REFERENCES User(id)
   );
@@ -133,14 +133,15 @@ exports.addWastePoint = function(req, user, callback){
         obj.uid,
         obj.comment,
         obj.img,
-        obj.todo || 'b0'
+        obj.todo?1:0
     ];
     var values = values.map(function(value) {
         return connection.escape(value)
     });
+
     var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img, todo) VALUES (' + values.join(', ') + ')';
 
-    console.log('SQL: INSERT INTO ...');
+    console.log('SQL: ' + sqlQuery.substr(0, 256));
 
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err){
