@@ -10,7 +10,7 @@
 				<!-- Image-Template:  -->
 				<div class="imagetron">
 	  				<label for="picture"> 
-	  				<i class="icon-camera icon-2x"></i> <br />Take a picture</label>
+	  				<i class="icon-camera icon-2x"></i> <br />Take a picture [optional]</label>
 	    		    <div image-upload id="picture" width="680" height="280"></div>
 	    		 </div>
 				<!-- /Image-Template -->	    		
@@ -19,15 +19,10 @@
 	<div class="imagetron">
       <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
-
-        <!-- TODO make nice checkbox -->
-         <br>
-      <input id="todo" type="checkbox" name="todo" ng-model="todo">
-      Already picked up</input>
       <br>		   <br>		
-      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save()"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; Create</button>
-      &nbsp;
-      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save()"> <i class="icon-trash iconred"></i>&nbsp;&nbsp; Pickup</button>
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(false)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; spotted</button>
+      	      &nbsp;
+      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-trash iconred"></i>&nbsp;&nbsp; cleaned up</button>
       </div>
       <span ng-show="uploading"> uploading image... </span>
     </form>

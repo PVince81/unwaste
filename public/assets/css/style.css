@@ -55,7 +55,6 @@ body {
 
 
 .btn-big-green {
-	margin-left:20px;
 	border-width: 1px;
     background-color: #47bc0b;
     border-radius: 6px 6px 6px 6px;
@@ -233,7 +232,9 @@ a.btn-small-red:active {
 	background:#FFFFFF;
 	padding: 5px;
 	border-radius: 0 0 4px 0;
-	z-index: 200;
+	z-index: 200;   
+	height: 40px;
+    width: 40px;
 }
 
 /*
