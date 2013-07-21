@@ -19,13 +19,9 @@
 	<div class="jumbotron">
       <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
-
-        <!-- TODO make nice checkbox -->
-         <br>
-      <input id="todo" type="checkbox" name="todo" ng-model="todo">
-      Already picked up</input>
       <br>		   <br>		
-      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save()"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; Create Wastespot</button>
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(false)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; spotted</button>
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; cleaned up</button>
       </div>
       <span ng-show="uploading"> uploading image... </span>
     </form>
