@@ -1,25 +1,32 @@
 <div class="page-container" ng-controller="spotController">
 	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()">
-     <i class="icon-2x icon-cogs"></i></button>
-   		<div class="trash-img" style="height:180px; background: url('content/1.jpg') #282828 no-repeat center top;"> 	
-    		<div class="spotter">Spotted by <br /> <strong>{{ $user.name }}</strong></div>		  
-    	</div>  
+     <i class="icon-2x icon-cogs"></i></button>   
+     
+   	  <form name="spotForm" ng-submit="createSpot">
+   	  	   	  	
+   	  	 <div class="trash-img" style="height:180px; background: url('{{imageData}}') #282828 no-repeat center top;"> 	
+    		<div class="spotter">Spotted by <br /> <strong>{{ $user.name }}</strong></div>		    	
+    		<div class="spotted"> <strong>  </strong> <i class="icon-eye-open"></i></div>    		
+				<!-- Image-Template:  -->
+				<div class="imagetron">
+	  				<label for="picture"> 
+	  				<i class="icon-camera icon-2x"></i> <br />Take a picture [optional]</label>
+	    		    <div image-upload id="picture" width="680" height="280"></div>
+	    		 </div>
+				<!-- /Image-Template -->	    		
+    	</div>
 	
-    <form name="spotForm" ng-submit="createSpot">
-
+	<div class="jumbotron">
       <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
 
-      <label for="picture">Take a picture [optional]</label>
-      <div image-upload id="picture" width="680" height="280"></div>
         <!-- TODO make nice checkbox -->
+         <br>
       <input id="todo" type="checkbox" name="todo" ng-model="todo">
-      </input>
-      <span ng-hide="todo"> Picked it up? </span>
-      <span ng-show="todo"> checked </span>
-      <br>
-      <br>
-      <button type="submit" class="btn" ng-click="save()">Submit</button>
+      Already picked up</input>
+      <br>		   <br>		
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save()"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; Create Wastespot</button>
+      </div>
       <span ng-show="uploading"> uploading image... </span>
     </form>
 </div>

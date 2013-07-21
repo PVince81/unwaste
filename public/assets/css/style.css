@@ -65,7 +65,6 @@ body {
     text-decoration: none !important;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     transition: all 0.2s linear 0s;
-    width: 236px;
     border-color:#C63702;
         
 }
@@ -188,6 +187,16 @@ a.btn-small-red:active {
 /*
  * Image and Meta:
  */
+
+
+.imagetron {
+    padding-top: 60px;
+    position: relative;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);  
+    font-size: 17.5px;
+    color:#FFFFFF;
+}
 
 .trash-img { 
 	width:100%;
