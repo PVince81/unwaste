@@ -1,6 +1,6 @@
 <div class="page-container bg-img" ng-controller="spotController">
-	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()">
-     <i class="icon-2x icon-cogs"></i></button>   
+	 <button id="menu" class="btn pull-left" ng-click="$navigate.go('/start')">
+     <i class="icon-2x icon-backward"></i></button>   
      
    	  <form name="spotForm" ng-submit="createSpot">
    	  	   	  	
@@ -10,22 +10,18 @@
 				<!-- Image-Template:  -->
 				<div class="imagetron">
 	  				<label for="picture"> 
-	  				<i class="icon-camera icon-2x"></i> <br />Take a picture [optional]</label>
 	    		    <div image-upload id="picture" width="680" height="280"></div>
 	    		 </div>
 				<!-- /Image-Template -->	    		
     	</div>
 	
-	<div class="jumbotron">
+	<div class="imagetron">
       <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
-
-        <!-- TODO make nice checkbox -->
-         <br>
-      <input id="todo" type="checkbox" name="todo" ng-model="todo">
-      Already picked up</input>
       <br>		   <br>		
-      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save()"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; Create Wastespot</button>
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-marker"></i>&nbsp;spotted</button>
+      	      &nbsp;
+      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save(false)"> <i class="icon-trash"></i>&nbsp;cleaned up</button>
       </div>
       <span ng-show="uploading"> uploading image... </span>
     </form>
