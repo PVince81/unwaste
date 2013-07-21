@@ -9,10 +9,14 @@
 
   angular.module('uwController', ['uwServices'])
     .controller('startController', [
-      '$scope',
-      function ($scope) {
-
+      '$scope', '$rootScope',
+      function ($scope, $rootScope) {
+            $rootScope.$on('spotCreated', function() {
+                console.log('spot created');
+                $scope.createdMessage = 'Spot created';
+            });
       }
+      
     ])
     .controller('detailController', [
       '$scope', '$http', '$routeParams',
@@ -31,12 +35,13 @@
 
     ])
     .controller('spotController', [
-      '$scope', '$http',
-      function ($scope, $http) {
+      '$scope', '$http', '$navigate', '$rootScope',
+      function ($scope, $http, $navigate, $rootScope) {
 
         function success(data) {
 
           $scope.save = function () {
+            $scope.uploading = true;
 
             $http.post('/api/wastepoint', {
               latitude: data.coords.latitude,
@@ -45,8 +50,12 @@
                 img: $scope.imageData,
                 comment:  $scope.comment,
                 todo: 0
+
             }).success(function () {
-                alert('successfully created!');
+                $scope.uploading = false;
+                console.log('broadcasting');
+                $rootScope.$broadcast('spotCreated');
+                $navigate.go('/');
             });
           };
 

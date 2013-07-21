@@ -14,10 +14,12 @@
       <div image-upload id="picture" width="680" height="280"></div>
         <!-- TODO make nice checkbox -->
       <input id="todo" type="checkbox" name="todo" ng-model="todo">
-        Did you already pick it up?
       </input>
+      <span ng-hide="todo"> Picked it up? </span>
+      <span ng-show="todo"> checked </span>
       <br>
       <br>
       <button type="submit" class="btn" ng-click="save()">Submit</button>
+      <span ng-show="uploading"> uploading image... </span>
     </form>
 </div>
