@@ -40,7 +40,7 @@
 
         function success(data) {
 
-          $scope.save = function () {
+          $scope.save = function (todo) {
             $scope.uploading = true;
 
             $http.post('/api/wastepoint', {
