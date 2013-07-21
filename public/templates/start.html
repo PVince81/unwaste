@@ -1,10 +1,17 @@
 <div class="page-container bg-img">
   <div class="content-container">
 		<div class="jumbotron">
-			<div>Hello <div ng-click="$navigate.go('/login')" class="btnempty">stranger</div> {{ $user.name }}!</div>
-	    	<button class="btn-large btn-big-red" ng-click="$navigate.go('/spot')"><i class="icon-eye-open iconred"></i>&nbsp;&nbsp; Spot Waste</button>
+			<div> Hello 
+                <div 
+                    ng-click="$navigate.go('/login')" class="btnempty">stranger
+                </div> {{ $user.name }}!
+            </div>
+	    	<button class="btn-large btn-big-red" ng-click="$navigate.go('/spot')">
+                <i class="icon-eye-open iconred"></i>
+                &nbsp;&nbsp; Spot Waste</button>
 	    	<br /><br />
-	   		<button class="btn btn-large" ng-click="$navigate.go('/discover')"><i class="icon-compass"></i> Discover</a></button>
+	   		<button class="btn btn-large" ng-click="$navigate.go('/discover')">
+            <i class="icon-compass"></i> Discover Waste</a></button>
     </div>
   </div>
 </div>

@@ -115,7 +115,7 @@ exports.getWastePointImage = function(query, callback) {
 };
 exports.addWastePoint = function(req, user, callback){
     var query = req.body;
-    console.log('addWastePoint', user, query);
+    console.log('addWastePoint', user);
     var obj = {
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
@@ -140,7 +140,7 @@ exports.addWastePoint = function(req, user, callback){
     });
     var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img, todo) VALUES (' + values.join(', ') + ')';
 
-    console.log('SQL: ', sqlQuery);
+    console.log('SQL: INSERT INTO ...');
 
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err){

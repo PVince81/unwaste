@@ -1,6 +1,9 @@
 <div ng-show="imageData" class="trash-img" style="height:180px; background: url('{{imageData}}') #282828 no-repeat center top;"> 
 <div>
   <i class="icon-camera icon-2x"></i>
+  
+  
+  <label for="picture">Take a picture [optional]</label>
   <input type="file" ng-model="file" onchange="angular.element(this).scope().openFile(this)">
 </div>
 
