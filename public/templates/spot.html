@@ -20,9 +20,9 @@
       <label for="comment">Please add a comment [optional]</label>
       <textarea id="comment" name="comment" ng-model="comment"></textarea>
       <br>		   <br>		
-      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(false)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; spotted</button>
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; spotted</button>
       	      &nbsp;
-      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-trash iconred"></i>&nbsp;&nbsp; cleaned up</button>
+      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save(false)"> <i class="icon-map-trash iconred"></i>&nbsp;&nbsp; cleaned up</button>
       </div>
       <span ng-show="uploading"> uploading image... </span>
     </form>

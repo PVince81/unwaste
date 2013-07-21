@@ -49,8 +49,7 @@
                 timestamp: Date.now(),
                 img: $scope.imageData,
                 comment:  $scope.comment,
-                todo: 0
-
+                todo: !!todo
             }).success(function () {
                 $scope.uploading = false;
                 console.log('broadcasting');
