@@ -13,8 +13,6 @@ Set up dev environment
 - Install MySQL
 - Set up MySQL (see SQL commands in lib/api.js comments)
 - Run "npm install"
-- Run "npm install bower -g"
-- Run "cd public/ && bower install && ln -s bower_components components"
 
-Then simply start the server using "npm start"
+Then start the server using "npm start"
 
