@@ -19,8 +19,8 @@
       }
     ])
     .controller('detailController', [
-      '$scope', '$http', '$routeParams',
-      function ($scope, $http, $routeParams) {
+      '$scope', '$http', '$routeParams', '$navigate', '$rootScope',
+      function ($scope, $http, $routeParams, $navigate, $rootScope) {
         var pointId = parseInt($routeParams.id, 10);
 
         $http.get('/api/wastepoint/' + pointId)
@@ -31,6 +31,19 @@
               $scope.latitude = data.latitude;
               $scope.longitude = data.longitude;
         });
+
+        $scope.confirm = function (todo) {
+            // TODO: in the future, increment a counter ? (also spotted by user)
+            // for now we just go back to the map
+            $navigate.go('/discover');
+        };
+        $scope.cleanedUp = function(){
+            $http.get('/api/wastepoint/done/' + pointId).success(function () {
+                console.log('broadcasting');
+                $rootScope.$broadcast('statusMessage', 'Spot cleant up');
+                $navigate.go('/');
+            });
+        };
       }
 
     ])
