@@ -11,7 +11,7 @@ Set up dev environment
 
 - Install Node JS
 - Install MySQL
-- Set up MySQL (see SQL commands in lib/api.js comments)
+- Set up MySQL (see SQL commands in doc/init_db.sql)
 - Run "npm install"
 
 Then start the server using "npm start"
