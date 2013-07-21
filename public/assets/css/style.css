@@ -250,11 +250,10 @@ a.btn-small-red:active {
 
 
 .imagetron {
-    padding-top: 60px;
-    position: relative;
-    text-align: center;
+	padding: 60px;
+    position: absolute;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);  
-    font-size: 17.5px;
+    font-size: 10px;
     color:#FFFFFF;
 }
 
