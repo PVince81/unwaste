@@ -1,14 +1,27 @@
-<div class="page-container" ng-controller="detailController">
-
-    <label>Latitude:</label>
-    <div>{{latitude}}</div>
-    <label>Longitude:</label>
-    <div>{{longitude}}</div>
-
-    <label for="comment"></label>
+<div class="page-container bg-img" ng-controller="detailController">
+	 <button id="menu" class="btn pull-left" ng-click="$navigate.back()">
+     <i class="icon-2x icon-cogs"></i></button>   
+     
+   	  <form name="spotForm" ng-submit="createSpot">
+   	  	   	  	
+   	  	 <div class="trash-img" style="height:180px; background: url('{{imageUrl}}') #282828 no-repeat center top;"> 	
+    		<div class="spotter">Spotted by <br /> <strong> unknown</strong></div>		    	
+    		<div class="spotted"> <strong>  </strong> <i class="icon-eye-open"></i></div>    		
+    	</div>
+	
+	<div class="imagetron">		
     <div>{{comment}}</div>
-
-    <label for="pictureBefore"></label>
-    <img src="{{imageUrl}}"></img>
-
+     
+      <br>		   <br>		
+      	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save(false)"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; confirm</button>
+      	      &nbsp;
+      	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="save(true)"> <i class="icon-map-trash iconred"></i>&nbsp;&nbsp; cleaned up</button>
+      </div>
+     </form>
+     
+     <div style="height:180px; width: 100%;
+      background: url('http://maps.googleapis.com/maps/api/staticmap?center={{latitude}},{{longitude}}&zoom=16&size=800x300&markers=color:blue%7Clabel:S%7C{{latitude}},{{longitude}}&sensor=false') #282828 no-repeat center top;">
+     
+     </div>
+     
 </div>
