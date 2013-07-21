@@ -23,10 +23,10 @@
         <!-- TODO make nice checkbox -->
          <br>
       <input id="todo" type="checkbox" name="todo" ng-model="todo">
-        Did you already pick it up?
-      </input>
+      Already picked up</input>
       <br>		   <br>		
       	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="save()"> <i class="icon-map-marker iconred"></i>&nbsp;&nbsp; Create Wastespot</button>
       </div>
+      <span ng-show="uploading"> uploading image... </span>
     </form>
 </div>

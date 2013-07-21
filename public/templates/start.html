@@ -2,10 +2,9 @@
   <div class="content-container">
 		<div class="jumbotron">
 			
-			
     <div class="alert alert-info"> test</div>
     
-			<div> Hello 
+			<div ng-hide="createdMessage"> Hello 
                 <div 
                     ng-click="$navigate.go('/login')" class="btnempty">stranger
                 </div> {{ $user.name }}!
