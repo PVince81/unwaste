@@ -12,6 +12,7 @@ app.configure(function () {
     app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
     app.use(express.cookieParser());
+    app.use(express.compress());
     app.use(express.session({
         secret: 'a589WEj1c9878j!?ß42WECRWERWE34##432§"$1',
         cookie: {
