@@ -61,7 +61,7 @@ body {
     box-shadow: 0 0 0 1px #47bc0b inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #3fa40a, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
     color: #FFFFFF;
     font-family: 'Open Sans', sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     height: 61px;
     letter-spacing: -1px;
@@ -107,7 +107,7 @@ body {
     box-shadow: 0 0 0 1px #C63702 inset, 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 8px 0 0 #AD3002, 0 8px 0 1px rgba(0, 0, 0, 0.4), 0 8px 8px 1px rgba(0, 0, 0, 0.5);
     color: #FFFFFF;
     font-family: 'Open Sans', sans-serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     height: 61px;
     letter-spacing: -1px;
@@ -163,9 +163,6 @@ a.btn-small-red:active {
     background-position: 0 -86px;
 }
 
-.iconred {
-	color: #FFFFFF;
-}
 
 .btnempty {
 	border: 1px dashed rgba(255,255,255,0.5);
