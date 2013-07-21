@@ -41,7 +41,7 @@
             $http.get('/api/wastepoint/done/' + pointId).success(function () {
                 console.log('broadcasting');
                 $rootScope.$broadcast('statusMessage', 'Spot cleant up');
-                $navigate.go('/');
+                $navigate.go('/discover');
             });
         };
       }
