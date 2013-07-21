@@ -80,7 +80,8 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           var map = new google.maps.Map(element[0], mapOptions),
-            currentPosMarker = null;
+            currentPosMarker = null,
+            lastPos;
 
           gpsData.getGpsData(function (gpsData) {
             var coords = [gpsData.coords.latitude, gpsData.coords.longitude];
@@ -99,6 +100,7 @@
             else {
               currentPosMarker.setPosition(coords);
             }
+            lastPos = coords;
           });
 
           scope.$on('pointsChanged', function ($event, points) {
@@ -119,19 +121,25 @@
             });
           });
 
+          function recenter(){
+              google.maps.event.trigger(map, 'resize');
+              if (lastPos){
+                  map.setCenter(lastPos);
+              }
+          }
+
           window.onresize = function(){
               $rootScope.$apply(function(){
-                google.maps.event.trigger(map, 'resize');
+                  recenter();
               });
           };
           $rootScope.$on('$routeChangeStart', function(){
-              console.log('locationChangeStart');
-              google.maps.event.trigger(map, 'resize');
+              recenter();
           });
 
           // HACK: trigger resize after animation
           window.setTimeout(function(){
-              google.maps.event.trigger(map, 'resize');
+              recenter();
           }, 500);
         }
       }
