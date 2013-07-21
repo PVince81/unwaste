@@ -118,6 +118,21 @@
               });
             });
           });
+
+          window.onresize = function(){
+              $rootScope.$apply(function(){
+                google.maps.event.trigger(map, 'resize');
+              });
+          };
+          $rootScope.$on('$routeChangeStart', function(){
+              console.log('locationChangeStart');
+              google.maps.event.trigger(map, 'resize');
+          });
+
+          // HACK: trigger resize after animation
+          window.setTimeout(function(){
+              google.maps.event.trigger(map, 'resize');
+          }, 500);
         }
       }
     }]);
