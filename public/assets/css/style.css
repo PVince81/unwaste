@@ -65,6 +65,7 @@ body {
 
 
 .btn-big-green {
+	padding: 10px 15px;
 	border-width: 1px;
     background-color: #47bc0b;
     border-radius: 6px 6px 6px 6px;
@@ -111,6 +112,7 @@ body {
 
 
 .btn-big-red {
+	padding: 10px 15px;
 	border-width: 1px;
     background-color: #C63702;
     border-radius: 6px 6px 6px 6px;
