@@ -1,25 +1,25 @@
 <div class="page-container bg-img" ng-controller="detailController">
 	 <button id="menu" class="btn pull-left" ng-click="$navigate.go('/discover')">
-     <i class="icon-2x icon-backward"></i></button>   
-     
+     <i class="icon-2x icon-backward"></i></button>
+
    	  <form name="spotForm" ng-submit="createSpot">
-   	  	   	  	
-   	  	 <div class="trash-img" style="height:180px; background: url('{{imageUrl}}') #282828 no-repeat center top;"> 	
-    		<div class="spotter">Spotted by <br /> <strong> unknown</strong></div>		    	
-    		<div class="spotted"> <strong>  </strong> <i class="icon-eye-open"></i></div>    		
-    	</div>	
-	<div class="detailtron">		
+
+   	  	 <div class="trash-img" style="height:180px; background: url('{{imageUrl}}') #282828 no-repeat center top;">
+             <div class="spotter">Spotted by <br /> <strong> {{login}} </strong></div>
+    		<div class="spotted"> <strong>  </strong> <i class="icon-eye-open"></i></div>
+    	</div>
+	<div class="detailtron">
     <div>{{comment}}</div>
-    
+
       	<button class="btn-large btn-big-red" type="submit" class="btn" ng-click="confirm()"> <i class="icon-map-marker"></i>&nbsp;&nbsp; still there</button>
       	      &nbsp;
       	<button class="btn-large btn-big-green" type="submit" class="btn" ng-click="cleanedUp()"> <i class="icon-trash"></i>&nbsp;&nbsp; cleaned up</button>
       </div>
      </form>
-     
+
      <div style="height:180px; width: 100%;
       background: url('http://maps.googleapis.com/maps/api/staticmap?center={{latitude}},{{longitude}}&zoom=16&size=1000x180&markers=icon:http://vincentpetry.net:3000/assets/img/trashmark.png|{{latitude}},{{longitude}}&sensor=false&shadow=false') #282828 no-repeat center top;">
-     
+
      </div>
-     
+
 </div>

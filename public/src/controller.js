@@ -25,11 +25,11 @@
 
         $http.get('/api/wastepoint/' + pointId)
           .success(function (data) {
-              data = data[0];
               $scope.comment = data.comment;
               $scope.imageUrl = '/api/wastepointimage?id=' + pointId;
               $scope.latitude = data.latitude;
               $scope.longitude = data.longitude;
+              $scope.login = data.login || 'unknown';
         });
 
         $scope.confirm = function (todo) {

@@ -91,8 +91,33 @@ exports.getWastePoint = function(query, callback) {
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err){
             console.error(err);
+            err({err:err});
+            return;
         }
-        callback(rows, err);
+        if (!rows.length){
+            err({err: 'Not found', statusCode: 404});
+            return;
+        }
+
+        var point = rows[0];
+
+        // user select
+        if (point.uid){
+            connection.query('SELECT login FROM User WHERE id = ' + rows[0].uid, function(err, userRows, fields){
+                if (err){
+                    console.error(err);
+                    err({err:err});
+                    return;
+                }
+                var point = rows[0];
+                point.login = userRows[0].login;
+                callback(point, err);
+            });
+        }
+        else{
+            point.login = null;
+            callback(point, err);
+        }
     });
 };
 exports.getWastePointImage = function(query, callback) {
