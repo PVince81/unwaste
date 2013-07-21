@@ -49,6 +49,10 @@ body {
     display: block;
 }
 
+.alert {
+	
+}
+
 .btn-big-red {
 	border-width: 1px;
     background-color: #C63702;
