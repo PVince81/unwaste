@@ -46,11 +46,11 @@
         $rootScope.$navigate = $navigate;
 
         if(!user.isLoggedIn()) {
-          $location.path('/login');
+          console.log("Stranger in the night...");
         } else {
           $rootScope.$user = user.getData();
           console.log($rootScope.$user);
-        }
+        } 
       }
     ])
 

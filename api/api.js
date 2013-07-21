@@ -27,7 +27,7 @@ var connection = mysql.createConnection({
     latitude FLOAT(12, 10) NOT NULL,
     longitude FLOAT(12, 10) NOT NULL,
     timestamp datetime NOT NULL,
-    uid int NOT NULL,
+    uid int,
     comment VARCHAR(140),
     img LONGBLOB,
     todo BIT,
@@ -120,7 +120,7 @@ exports.addWastePoint = function(req, user, callback){
         latitude: parseFloat(query.latitude, 10),
         longitude: parseFloat(query.longitude, 10),
         timestamp: query.timestamp,
-        uid: user.uid,
+        uid: user? user.uid : null,
         comment: query.comment,
         img : query.img,
         todo : query.todo
@@ -140,7 +140,7 @@ exports.addWastePoint = function(req, user, callback){
     });
     var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img, todo) VALUES (' + values.join(', ') + ')';
 
-    console.log('SQL: INSERT INTO ...');
+    console.log('SQL: INSERT INTO ...' + obj.uid);
 
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err){

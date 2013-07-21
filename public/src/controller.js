@@ -11,12 +11,12 @@
     .controller('startController', [
       '$scope', '$rootScope',
       function ($scope, $rootScope) {
-            $rootScope.$on('spotCreated', function() {
-                console.log('spot created');
-                $scope.createdMessage = 'Spot created';
+            $rootScope.$on('success', function(message) {
+                console.log(message.name);
+                $scope.successMessage = "message";
+                console.log('scope', $scope.successMessage);
             });
       }
-      
     ])
     .controller('detailController', [
       '$scope', '$http', '$routeParams',
@@ -49,12 +49,12 @@
                 timestamp: Date.now(),
                 img: $scope.imageData,
                 comment:  $scope.comment,
-                todo: 0
+                todo: $scope.todo
 
             }).success(function () {
                 $scope.uploading = false;
                 console.log('broadcasting');
-                $rootScope.$broadcast('spotCreated');
+                $rootScope.$broadcast('success', "Spot created!");
                 $navigate.go('/');
             });
           };
