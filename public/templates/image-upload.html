@@ -1,5 +1,10 @@
+<div ng-show="imageData" class="trash-img" style="height:180px; background: url('{{imageData}}') #282828 no-repeat center top;"> 
 <div>
   <i class="icon-camera icon-2x"></i>
-  <img ng-show="imageData" ng-src="{{imageData}}">
   <input type="file" ng-model="file" onchange="angular.element(this).scope().openFile(this)">
 </div>
+
+
+    		<div class="spotter">Spotted by <br /> <strong>{{ $user.name }}</strong></div>	
+			  
+	</div> <!-- /trash-img -->	
