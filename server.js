@@ -7,6 +7,7 @@ var app = express(),
     sessionStore = new express.session.MemoryStore();
 
 app.configure(function () {
+    var publicDir = process.env.publicDir || 'public';
     app.set('port', process.env.PORT || 3000);
     app.use(express.logger('dev'));  /* 'default', 'short', 'tiny', 'dev' */
     app.use(express.bodyParser());
@@ -18,7 +19,9 @@ app.configure(function () {
         },
         store: sessionStore
     }));
-    app.use(express.static(path.join(__dirname, 'public')));
+
+    console.log('Serving public files from: ', publicDir);
+    app.use(express.static(path.join(__dirname, publicDir)));
 
     app.get('/api/*', routes.api);
     app.post('/api/*', routes.api);

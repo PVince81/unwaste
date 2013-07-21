@@ -1,7 +1,7 @@
 {
   "name": "unwaste",
   "description": "Unwaste",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "dependencies": {
     "requirejs": "2.0",
     "express": "3.0",
@@ -13,6 +13,15 @@
     "bower": "~0.10.0",
     "crypto": "~0.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-env": "~0.4.0",
+    "grunt-preprocess": "~2.3.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-express-server": "~0.4.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.6.1"
+  },
   "engine": "node >= 0.8.4"
 }

@@ -3,3 +3,6 @@ npm-debug.log
 .*.swp
 public/components
 public/bower_components
+.project
+.classpath
+build/

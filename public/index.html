@@ -11,10 +11,9 @@
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">   
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">    
-    
+
     <link rel="stylesheet" href="assets/css/mobile-nav.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    
     
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
@@ -27,16 +26,22 @@
 
     <mobile-view />
 
+    <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+<!-- @if NODE_ENV == 'DEVELOPMENT' -->
     <script src="src/lib/angular/angular.js"></script>
     <script src="src/lib/angular-resource/angular-resource.js"></script>
     <script src="src/lib/angular/angular-mobile.js"></script>
     <script src="src/lib/angular-mobile-nav/mobile-nav.js"></script>
     <script src="src/lib/underscore/underscore-min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
     <script src="src/app.js"></script>
     <script src="src/controller.js"></script>
     <script src="src/directives.js"></script>
     <script src="src/services.js"></script>
+<!-- @endif -->
+<!-- @if NODE_ENV == 'PRODUCTION' -->
+    <script src="libs.min.js"></script>
+    <script src="app.min.js"></script>
+<!-- @endif -->
 
   </body>
   </html>
