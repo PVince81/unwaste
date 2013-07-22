@@ -220,7 +220,7 @@ exports.markAsDone = function(query, callback, err) {
 encrypt = function(login, pw) {
     var shasum = crypto.createHash('sha1'),
         SALT = 'KJAHSLKJHLAKHUIW';
-        
+
     shasum.update(login + SALT + pw);
     return shasum.digest('hex');
 };
@@ -274,7 +274,7 @@ exports.authenticate = function(query, callback) {
         var login = connection.escape(obj.login);
         var safePw = encrypt(obj.pw);
         
-        var sqlQuery = 'SELECT login, pw, id from User WHERE login = ' + login
+        var sqlQuery = 'SELECT login, pw, id from User WHERE oauth_provider IS NULL AND login = ' + login
         
         connection.query(sqlQuery, function(err, rows, fields) {
             connection.end();
@@ -311,3 +311,78 @@ exports.authenticate = function(query, callback) {
         });
     });
 };
+
+exports.getUserById = function(id, callback){
+    console.log('API: getUserById ', id);
+    pool.getConnection(function(err, connection){
+        if (err){
+            console.error(err);
+            callback(null, err);
+            return;
+        }
+        var sqlQuery = 'SELECT id, login from User WHERE id = ' + connection.escape(id);
+        connection.query(sqlQuery, function(err, rows){
+            connection.end();
+            if (rows && rows.length > 0){
+                console.log('Found user: ', rows[0]);
+                callback(rows[0]);
+                return;
+            }
+            callback(null);
+        });
+    });
+}
+
+
+exports.findOrCreateUserOAuth = function(options, callback){
+    console.log('Authenticating user ' + options.oauthUserId + ' with options ', options);
+    pool.getConnection(function(err, connection){
+        if (err){
+            console.error(err);
+            callback(null, err);
+            return;
+        }
+        // TODO: update tokens first, and use update call error as sign
+        // whether the use existed or not
+        // The tokens might change if the user blocked the app and allowed it again
+        var sqlQuery = 'SELECT id, login from User WHERE oauth_uid = ' + connection.escape(options.oauthUserId) +
+            ' AND oauth_provider = ' + connection.escape(options.oauthProvider);
+        console.log('SQL: ', sqlQuery);
+        connection.query(sqlQuery, function(err, rows){
+            if (rows && rows.length > 0){
+                connection.end();
+                console.log('Found user: ', rows[0]);
+                callback(rows[0]);
+                return;
+            }
+
+            // register user
+            console.log('User not found, creating one');
+            var values = _.map([
+                options.login,
+                options.oauthProvider,
+                options.oauthUserId + '',
+                options.oauthToken,
+                options.oauthSecret
+            ], function(value){
+                return connection.escape(value);
+            });
+
+            sqlQuery = 'INSERT INTO User (login, oauth_provider, oauth_uid, oauth_token, oauth_secret)' +
+                    ' VALUES (' + values.join(' ,') + ')';
+            console.log('SQL: ', sqlQuery);
+            connection.query(sqlQuery,
+                function(err, rows){
+                    connection.end();
+                    if (err){
+                        console.error('Insert user failed ', err);
+                        callback(null, err);
+                        return;
+                    }
+                    console.log('New user created with id: ', rows.insertId);
+                    callback({uid: rows.insertId}, err);
+                });
+        });
+    });
+}
+

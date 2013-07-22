@@ -1,8 +1,15 @@
 {
+    "baseUrl": "http://localhost:3000",
     "db": {
         "host": "localhost",
         "user": "unwaste",
         "password": "un3W4$13",
         "database": "unwaste"
+    },
+    "auth": {
+        "googleClientId": "PUT_GOOGLE_CLIENT_ID_HERE",
+        "googleConsumerSecret": "PUT_GOOGLE_CONSUMER_SECRET_HERE",
+        "twitterConsumerKey": "PUT_CONSUMER_KEY_HERE",
+        "twitterConsumerSecret": "PUT_CONSUMER_SECRET_HERE"
     }
 }
