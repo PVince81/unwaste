@@ -1,5 +1,6 @@
 var crypto = require('crypto'),
     _ = require('underscore'),
+    oauth = require('oauth'),
     config = require('../settings.json');
 
 var mysql      = require('mysql');
