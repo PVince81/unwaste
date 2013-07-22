@@ -11,6 +11,60 @@ var connection = mysql.createConnection({
     database : config.db.database
 });
 
+function oauthConsumer(){
+    return new oauth.OAuth(
+        "https://twitter.com/oauth/request_token",
+        "https://twitter.com/oauth/access_token",
+        config.auth.twitterConsumerKey,
+        config.auth.twitterConsumerSecret,
+        "1.0A",
+        config.baseUrl + "/api/oauthcallback",
+        "HMAC-SHA1");
+}
+
+function oauthUser(options, callback){
+    console.log('Authenticating user ' + options.oauthUserId + ' with options ', options);
+    // TODO: update tokens first, and use update call error as sign
+    // whether the use existed or not
+    // The tokens might change if the user blocked the app and allowed it again
+    var sqlQuery = 'SELECT id, login from User WHERE oauth_uid = ' + connection.escape(options.oauthUserId) +
+        ' AND oauth_provider = ' + connection.escape(options.oauthProvider);
+    console.log('SQL: ', sqlQuery);
+    connection.query(sqlQuery, function(err, rows){
+        if (rows && rows.length > 0){
+            console.log('Found user: ', rows);
+            callback(rows[0]);
+            return;
+        }
+
+        // register user
+        console.log('User not found, creating one');
+        var values = _.map([
+            options.login,
+            options.oauthProvider,
+            options.oauthUserId + '',
+            options.oauthToken,
+            options.oauthSecret
+        ], function(value){
+            return connection.escape(value);
+        });
+
+        sqlQuery = 'INSERT INTO User (login, oauth_provider, oauth_uid, oauth_token, oauth_secret)' +
+                ' VALUES (' + values.join(' ,') + ')';
+        console.log('SQL: ', sqlQuery);
+        connection.query(sqlQuery,
+                function(err, rows){
+                    if (err){
+                        console.error('Insert user failed ', err);
+                        callback(null, err);
+                        return;
+                    }
+                    console.log('New user created with id: ', rows.insertId);
+                    callback({uid: rows.insertId}, err);
+                });
+    });
+}
+
 connection.connect();
 
 exports.getNearbyWastePoints = function(query, callback){
@@ -173,19 +227,19 @@ exports.markAsDone = function(query, callback, err) {
 encrypt = function(login, pw) {
     var shasum = crypto.createHash('sha1'),
         SALT = 'KJAHSLKJHLAKHUIW';
-        
+
     shasum.update(login + SALT + pw);
     return shasum.digest('hex');
 };
 
 exports.register = function(query, callback) {
     console.log('register', query);
-    
+
     var obj = {
         login: query.login,
         pw: query.pw
     };
-    
+
     var values = [obj.login, encrypt(obj.pw)].map(function(value) {
         return connection.escape(value)
     });
@@ -213,9 +267,9 @@ exports.authenticate = function(query, callback) {
 
     var login = connection.escape(obj.login);
     var safePw = encrypt(obj.pw);
-    
-    var sqlQuery = 'SELECT login, pw, id from User WHERE login = ' + login
-    
+
+    var sqlQuery = 'SELECT login, pw, id from User WHERE oauth_provider IS NULL AND login = ' + login
+
     connection.query(sqlQuery, function(err, rows, fields) {
         if (err) {
             console.error(err);
@@ -248,4 +302,49 @@ exports.authenticate = function(query, callback) {
             callback(failure);
         }
     });
+};
+exports.oauth = function(callback) {
+    console.log('API: oauth');
+    oa = oauthConsumer();
+    oa.getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){
+		if (error) {
+            callback(null, error);
+		}
+		else {
+            callback({
+                oauthToken: oauthToken,
+                oauthTokenSecret: oauthTokenSecret,
+                results: results
+            });
+	    }
+	});
+};
+exports.oauthCallback = function(oauth, callback){
+    console.log('API: oauth callback');
+    oa = oauthConsumer();
+    oa.getOAuthAccessToken(
+            oauth.token,
+            oauth.tokenSecret,
+            oauth.verifier,
+            function(error, oauthAccessToken, oauthAccessTokenSecret, results){
+                if (error){
+                    callback(null, error);
+                } else {
+                    oauthUser({
+                        // TODO: in the future, let the user pick a screen name to avoid conflicts
+                        login: results.screen_name,
+                        oauthUserId: results.user_id,
+                        oauthProvider: 'twitter',
+                        oauthToken: oauthAccessToken,
+                        oauthSecret: oauthAccessTokenSecret
+                    }, function(user){
+                        callback({
+                            user: user,
+                            accessToken: oauthAccessToken,
+                            accessTokenSecret: oauthAccessTokenSecret
+                        });
+                    });
+                }
+            }
+    );
 };

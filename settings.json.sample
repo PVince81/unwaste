@@ -1,4 +1,5 @@
 {
+    "baseUrl": "http://localhost:3000",
     "db": {
         "host": "localhost",
         "user": "unwaste",
@@ -6,7 +7,6 @@
         "database": "unwaste"
     },
     "auth": { 
-        "twitterAuthEnabled": false,
         "twitterConsumerKey": "PUT_CONSUMER_KEY_HERE",
         "twitterConsumerSecret": "PUT_CONSUMER_SECRET_HERE"
     }

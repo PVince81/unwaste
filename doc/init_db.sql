@@ -8,6 +8,10 @@ CREATE TABLE User (
     id int NOT NULL AUTO_INCREMENT,
     login VARCHAR(64) NOT NULL,
     pw VARCHAR(64),
+    oauth_provider VARCHAR(16),
+    oauth_uid VARCHAR(32),
+    oauth_token VARCHAR(64),
+    oauth_secret VARCHAR(64),
     PRIMARY KEY (id)
 );
 

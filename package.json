@@ -11,7 +11,8 @@
     "moment": "~1.7.0",
     "mysql": "~2.0.0",
     "bower": "~0.10.0",
-    "crypto": "~0.0.3"
+    "crypto": "~0.0.3",
+    "oauth": "~0.9.10"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
