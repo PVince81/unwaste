@@ -6,3 +6,4 @@ public/bower_components
 .project
 .classpath
 build/
+settings.json

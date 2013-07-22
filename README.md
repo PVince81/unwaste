@@ -12,6 +12,7 @@ Set up dev environment
 - Install Node JS
 - Install MySQL
 - Set up MySQL (see SQL commands in doc/init_db.sql)
+- Copy "settings.json.sample" to "settings.json" and edit it
 - Run the following commands:
 
     npm install

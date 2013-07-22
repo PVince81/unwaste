@@ -1,11 +1,13 @@
 var crypto = require('crypto'),
-     _ = require('underscore');
+    _ = require('underscore'),
+    config = require('../settings.json');
+
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'unwaste',
-  password : 'un3W4$13',
-  database : 'unwaste'
+    host     : config.db.host,
+    user     : config.db.user,
+    password : config.db.password,
+    database : config.db.database
 });
 
 connection.connect();
