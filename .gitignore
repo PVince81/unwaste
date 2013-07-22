@@ -7,3 +7,5 @@ public/bower_components
 .classpath
 build/
 settings.json
+logs/
+forever/

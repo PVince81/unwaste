@@ -97,6 +97,11 @@ module.exports = function(grunt) {
             },
             prod: {
             }
+        },
+        forever: {
+            options:{
+                index: 'server.js'
+            }
         }
     });
 
@@ -108,6 +113,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-preprocess');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-express-server');
+    grunt.loadNpmTasks('grunt-forever');
 
     // Default task(s).
 
@@ -115,5 +121,6 @@ module.exports = function(grunt) {
     grunt.registerTask('buildprod', ['env:prod', 'clean:prod', 'uglify:prod', 'cssmin', 'copy:prod', 'preprocess:prod']);
     grunt.registerTask('startdev', ['express']);
     grunt.registerTask('start', ['startdev']);
-    grunt.registerTask('startprod', ['buildprod', 'express']);
+    grunt.registerTask('startprod', ['buildprod', 'forever:start']);
+    grunt.registerTask('stopprod', ['forever:stop']);
 };
