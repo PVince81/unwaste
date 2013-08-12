@@ -20,37 +20,36 @@
             '$scope',
             function ($scope) {
 
+              function resizeImageIOS(url){
+                var mpImg = new MegaPixImage(url);
+                var canvas = document.createElement('canvas');
+                mpImg.render(canvas, { maxWidth: IMAGE_MAX_WIDTH, maxHeight: IMAGE_MAX_HEIGHT, quality: 0.8 });
+                return canvas.toDataURL('image/jpeg', 0.8);
+              }
+
               function resizeImage(image) {
                 var context;
                 var canvas = document.createElement('canvas');
+                var ratio = image.width / image.height;
+                var width = image.width;
+                var height = image.height;
 
-                if (window.isIOS){
-                    var mpImg = new MegaPixImage(image);
-                    mpImg.render(canvas, { maxWidth: IMAGE_MAX_WIDTH, maxHeight: IMAGE_MAX_HEIGHT, quality: 0.8 });
-                    return canvas.toDataURL('image/jpeg', 0.8);
+                if (width > height && width > IMAGE_MAX_WIDTH){
+                    width = IMAGE_MAX_WIDTH;
+                    height = width / ratio;
                 }
-                else{
-                    var ratio = image.width / image.height;
-                    var width = image.width;
-                    var height = image.height;
-
-                    if (width > height && width > IMAGE_MAX_WIDTH){
-                        width = IMAGE_MAX_WIDTH;
-                        height = width / ratio;
-                    }
-                    else if (height > width && height > IMAGE_MAX_HEIGHT){
-                        height = IMAGE_MAX_HEIGHT;
-                        width = height * ratio;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-
-                    context = canvas.getContext('2d');
-                    context.drawImage(image, 0, 0, width, height);
-
-                    return canvas.toDataURL('image/jpeg', 0.8);
+                else if (height > width && height > IMAGE_MAX_HEIGHT){
+                    height = IMAGE_MAX_HEIGHT;
+                    width = height * ratio;
                 }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                context = canvas.getContext('2d');
+                context.drawImage(image, 0, 0, width, height);
+
+                return canvas.toDataURL('image/jpeg', 0.8);
               }
 
               function readFileAsDataURL(path, callback) {
@@ -70,11 +69,16 @@
               }
 
               function loadImage(url, callback) {
-                readFileAsDataURL(url, function (dataURL) {
-                  getImageFromDataURL(dataURL, function (image) {
-                      callback(resizeImage(image));
-                  })
-                });
+                if (window.isIOS){
+                    callback(resizeImageIOS(url));
+                }
+                else{
+                  readFileAsDataURL(url, function (dataURL) {
+                    getImageFromDataURL(dataURL, function (image) {
+                        callback(resizeImage(image));
+                    })
+                  });
+                }
               };
 
               $scope.openFile = function (input) {
