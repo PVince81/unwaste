@@ -30,6 +30,7 @@
               $scope.latitude = data.latitude;
               $scope.longitude = data.longitude;
               $scope.login = data.login || 'unknown';
+              $scope.iconUrl = location.origin + '/assets/img/trashmark.png';
         });
 
         $scope.confirm = function (todo) {
