@@ -69,16 +69,17 @@
               }
 
               function loadImage(url, callback) {
-                if (window.isIOS){
-                    callback(resizeImageIOS(url));
-                }
-                else{
                   readFileAsDataURL(url, function (dataURL) {
-                    getImageFromDataURL(dataURL, function (image) {
-                        callback(resizeImage(image));
-                    })
+                    if (window.isIOS){
+                        // no resize for now :-(
+                        callback(dataURL);
+                    }
+                    else{
+                        getImageFromDataURL(dataURL, function (image) {
+                            callback(resizeImage(image));
+                        });
+                    }
                   });
-                }
               };
 
               $scope.openFile = function (input) {
