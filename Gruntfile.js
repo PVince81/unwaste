@@ -14,8 +14,10 @@ module.exports = function(grunt) {
         'angular/angular-mobile.js',
         'angular-mobile-nav/mobile-nav.js',
         'underscore/underscore-min.js',
-        'moment/moment.min.js'
-        ];
+        'moment/moment.min.js',
+        // TODO: pack ios stuff separately?
+        'ios-imagefile-megapixel/megapix-image.js'
+    ];
 
     appScripts = _.map(appScripts, function(file){
         return 'public/src/' + file;

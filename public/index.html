@@ -34,6 +34,7 @@
     <script src="src/lib/angular-mobile-nav/mobile-nav.js"></script>
     <script src="src/lib/underscore/underscore-min.js"></script>
     <script src="src/lib/moment/moment.min.js"></script>
+    <script src="src/lib/ios-imagefile-megapixel/megapix-image.js"></script>
     <script src="src/app.js"></script>
     <script src="src/controller.js"></script>
     <script src="src/directives.js"></script>
@@ -43,6 +44,9 @@
     <script src="libs.min.js"></script>
     <script src="app.min.js"></script>
 <!-- @endif -->
+    <script langage="javascript">
+        window.isIOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
+    </script>
 
   </body>
   </html>
