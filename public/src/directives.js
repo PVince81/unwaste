@@ -1,7 +1,9 @@
 (function () {
   'use strict';
   var ICON_TRASH = 'assets/img/trashmark.png',
-    ICON_CURRENT_POS = 'assets/img/locmark.png';
+    ICON_CURRENT_POS = 'assets/img/locmark.png',
+    IMAGE_MAX_WIDTH = 1000,
+    IMAGE_MAX_HEIGHT = 1000;
 
   angular.module('uwDirectives', ['uwServices'])
 
@@ -18,17 +20,29 @@
             '$scope',
             function ($scope) {
 
-              function resizeImage(image, width, height) {
+              function resizeImage(image) {
                 var context;
                 var canvas = document.createElement('canvas');
-                var scale = width / image.width;
+                var ratio = image.width / image.height;
+                var width = image.width;
+                var height = image.height;
+
+                if (width > height && width > IMAGE_MAX_WIDTH){
+                    width = IMAGE_MAX_WIDTH;
+                    height = width / ratio;
+                }
+                else if (height > width && height > IMAGE_MAX_HEIGHT){
+                    height = IMAGE_MAX_HEIGHT;
+                    width = height * ratio;
+                }
+
                 canvas.width = width;
                 canvas.height = height;
 
                 context = canvas.getContext('2d');
-                context.drawImage(image, 0, 0, width, image.height * scale);
+                context.drawImage(image, 0, 0, width, height);
 
-                return canvas.toDataURL();
+                return canvas.toDataURL('image/jpeg', 0.8);
               }
 
               function readFileAsDataURL(path, callback) {
@@ -50,7 +64,8 @@
               function loadImage(url, callback) {
                 readFileAsDataURL(url, function (dataURL) {
                   getImageFromDataURL(dataURL, function (image) {
-                    callback(resizeImage(image, $scope.width || image.width, $scope.height || image.height));
+                    //jcallback(resizeImage(image, $scope.width || image.width, $scope.height || image.height));
+                    callback(resizeImage(image));
                   })
                 });
               };
