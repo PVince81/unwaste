@@ -10,6 +10,15 @@ var pool = mysql.createPool({
     database : config.db.database
 });
 
+var DATE_FORMAT = '%Y-%m-%dT%H:%i:%s.%fZ';
+
+function toSQLDate(date){
+    if (!date){
+        return null;
+    }
+    return "STR_TO_DATE(" + date + ", '" + DATE_FORMAT + "')";
+}
+
 exports.getNearbyWastePoints = function(query, callback){
     console.log('getNearbyWastePoints', query);
     // distance in meters
@@ -25,7 +34,7 @@ exports.getNearbyWastePoints = function(query, callback){
     // convert to kilometers
     distance = distance / 1000;
 
-    var sqlQuery = 'SELECT latitude, longitude, timestamp, uid, comment, todo FROM Wastepoint WHERE acos(sin(' + latitude + ') * sin(latitude) + cos(' + latitude + ') * cos(latitude) * cos(longitude - (' + longitude + '))) * ' + planetRadius + ' <= ' + distance + '';
+    var sqlQuery = 'SELECT latitude, longitude, DATE_FORMAT(timestamp, \'' + DATE_FORMAT + '\'), uid, comment, todo FROM Wastepoint WHERE acos(sin(' + latitude + ') * sin(latitude) + cos(' + latitude + ') * cos(latitude) * cos(longitude - (' + longitude + '))) * ' + planetRadius + ' <= ' + distance + '';
 
     console.log('SQL: ', sqlQuery);
 
@@ -49,7 +58,7 @@ exports.getNearbyWastePoints = function(query, callback){
 exports.getWastePoints = function(query, callback) {
     console.log('getWastePoints', query);
 
-    var sqlQuery = 'SELECT id, latitude, longitude, timestamp, uid, comment, todo FROM Wastepoint WHERE todo = 1';
+    var sqlQuery = 'SELECT id, latitude, longitude, DATE_FORMAT(timestamp, \'' + DATE_FORMAT + '\') "timestamp", uid, comment, todo FROM Wastepoint WHERE todo = 1';
 
     console.log('SQL: ', sqlQuery);
 
@@ -81,7 +90,7 @@ exports.getWastePoint = function(query, callback) {
             id: query.id
         };
         id = connection.escape(obj.id);
-        var sqlQuery = 'SELECT id, latitude, longitude, timestamp, uid, comment, todo FROM Wastepoint WHERE id = ' + id;
+        var sqlQuery = 'SELECT id, latitude, longitude, DATE_FORMAT(timestamp, \'' + DATE_FORMAT + '\') "timestamp", uid, comment, todo FROM Wastepoint WHERE id = ' + id;
 
         console.log('SQL: ', sqlQuery);
         connection.query(sqlQuery, function(err, rows, fields) {
@@ -161,17 +170,14 @@ exports.addWastePoint = function(req, user, callback){
         };
 
         var values = [
-            obj.latitude,
-            obj.longitude,
-            obj.timestamp,
-            obj.uid,
-            obj.comment,
-            obj.img,
+            connection.escape(obj.latitude),
+            connection.escape(obj.longitude),
+            toSQLDate(connection.escape(obj.timestamp)),
+            connection.escape(obj.uid),
+            connection.escape(obj.comment),
+            connection.escape(obj.img),
             obj.todo?1:0
         ];
-        values = values.map(function(value) {
-            return connection.escape(value)
-        });
 
         var sqlQuery = 'INSERT INTO Wastepoint (latitude, longitude, timestamp, uid, comment, img, todo) VALUES (' + values.join(', ') + ')';
 

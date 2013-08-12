@@ -25,12 +25,17 @@
 
         $http.get('/api/wastepoint/' + pointId)
           .success(function (data) {
+              var timestamp = moment.utc(data.timestamp),
+                  dateString = timestamp.calendar();
+              dateString = dateString[0].toLowerCase() + dateString.substr(1);
               $scope.comment = data.comment;
               $scope.imageUrl = '/api/wastepointimage?id=' + pointId;
               $scope.latitude = data.latitude;
               $scope.longitude = data.longitude;
               $scope.login = data.login || 'unknown';
               $scope.iconUrl = location.origin + '/assets/img/trashmark.png';
+              $scope.timestamp = dateString;
+              $scope.timestampTitle = timestamp.toString();
         });
 
         $scope.confirm = function (todo) {
@@ -60,7 +65,7 @@
             $http.post('/api/wastepoint', {
               latitude: data.coords.latitude,
                 longitude: data.coords.longitude,
-                timestamp: Date.now(),
+                timestamp: (new Date).toISOString(),
                 img: $scope.imageData,
                 comment:  $scope.comment,
                 todo: !!todo

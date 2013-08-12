@@ -13,7 +13,8 @@ module.exports = function(grunt) {
         'angular-resource/angular-resource.js',
         'angular/angular-mobile.js',
         'angular-mobile-nav/mobile-nav.js',
-        'underscore/underscore-min.js'
+        'underscore/underscore-min.js',
+        'moment/moment.min.js'
         ];
 
     appScripts = _.map(appScripts, function(file){
